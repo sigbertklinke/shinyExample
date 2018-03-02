@@ -6,7 +6,7 @@ library("shinyFiles")
 
 VERSION <- 1
 fail    <- NULL
-if (Sys.info()['sysname']=="windows") {
+if (Sys.info()['sysname']=="Windows") {
   runcmd  <- shell
   convert <- 'magick'
   if (runcmd(convert)==127) fail <- "Please install ImageMagick 7.x from www.imagemagick.org"
