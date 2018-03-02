@@ -197,7 +197,7 @@ imageR <- function(prg) {
 	                    sep="\n")
 	writeLines(fullsource, paste0(cprg['tmp'], '/', cprg['long'], '.R'))
 	# run
-	cmd <- sprintf('cd %s; R CMD BATCH -q --vanilla %s.R', cprg['tmp'], cprg['long'])
+	cmd <- sprintf('cd %s; %s CMD BATCH -q --vanilla %s.R', cprg['tmp'], Sys.which('R'), cprg['long'])
 	runcmd(cmd, wait=TRUE)
 	# post
 	res   <- readLines(paste0(cprg['tmp'], '/', cprg['long'], '.Rout'))
