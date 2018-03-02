@@ -5,6 +5,10 @@ library("shinydashboard")
 library("shinyFiles")
 
 VERSION <- 1
+convert <- 'magick'
+runcmd  <- if (Sys.info()['sysname']=="windows") shell else system
+if (runcmd(convert)==127) convert <- 'convert'
+if (runcmd(convert)==127) stop("Please install ImageMagick from www.imagemagick.org")
 
 program <- function(x, ...) UseMethod("program")
 
@@ -186,7 +190,7 @@ imageR <- function(prg) {
 	writeLines(fullsource, paste0(cprg['tmp'], '/', cprg['long'], '.R'))
 	# run
 	cmd <- sprintf('cd %s; R CMD BATCH -q --vanilla %s.R', cprg['tmp'], cprg['long'])
-	system(cmd, wait=TRUE)
+	runcmd(cmd, wait=TRUE)
 	# post
 	res   <- readLines(paste0(cprg['tmp'], '/', cprg['long'], '.Rout'))
 	pasteOff(res, '<!--START-->',  '> #<!--END-->')
@@ -202,7 +206,7 @@ stata <- function(prg) {
   writeLines(fullsource, paste0(cprg['tmp'], '/', cprg['long'], '.do'))
   # run
 	cmd <- sprintf('cd %s; /usr/local/Stata15/stata -q -b do %s', cprg['tmp'], cprg['long'])
-	system(cmd, wait=TRUE)
+	runcmd(cmd, wait=TRUE)
 	# post
 	res   <- readLines(paste0(cprg['tmp'], '/',cprg['long'], '.log'))
 	pasteOff(res, 'running /usr/local/bin/profile.do ...', paste0('. ', graph), preinc=3)
@@ -223,7 +227,7 @@ octave <- function(prg, size, last=FALSE) {
   writeLines(fullsource, paste0(cprg['tmp'], '/', cprg['long'], '.m'))
   # run
   cmd <- sprintf('cd %s; octave-cli -f -q %s.m > %s.mout', cprg['tmp'], cprg['long'],  cprg['long'])
-  system(cmd, wait=TRUE)
+  runcmd(cmd, wait=TRUE)
   # post
   # post
   res   <- readLines(paste0(cprg['tmp'], '/', cprg['long'], '.mout'))
@@ -324,11 +328,9 @@ server <- function(input, output, session) {
       prg$runtime <- as.numeric(Sys.time()-start)
 	    # pdf2png
       if (file.exists(cprg['pdf'])) {
-        cdir <- setwd(as.character(cprg['tmp']))
-        cmd  <- sprintf('convert -density 150 -antialias %s.pdf -append -resize %.0fx%.0f -quality 100 %s.png', cprg['long'],
+        cmd  <- sprintf('cd ./tmp; convert -density 150 -antialias %s.pdf -append -resize %.0fx%.0f -quality 100 %s.png', cprg['long'],
                         as.numeric(cprg['wpx']), as.numeric(cprg['hpx']), cprg['long'])
-        system(cmd, wait=TRUE)
-        setwd(cdir)
+        runcmd(cmd, wait=TRUE)
         prg$pnghash <- cprg['short']
         if (file.exists(cprg['png'])) prg$pnghash <- digest(readBin(cprg['png'], 'raw', n=as.integer(file.info(cprg['png'])['size']), size=1), 'sha512')
       }
