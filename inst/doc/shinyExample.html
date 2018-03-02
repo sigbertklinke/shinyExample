@@ -36,6 +36,14 @@
 
 
 
+<div id="installation-from-github" class="section level2">
+<h2>Installation from github</h2>
+<p>To install the package from GitHub use the <a href="https://cran.r-project.org/package=devtools">devtools package</a>:</p>
+<blockquote>
+<p>devtools::install_github(‘sigbertklinke/shinyExample’)</p>
+</blockquote>
+<p>Note: To use the Shiny app you need to have installed <a href="https://www.ghostscript.com/">Ghostscript</a> and <a href="https://www.imagemagick.org">ImageMagick</a> before.</p>
+</div>
 <div id="shinyexample" class="section level2">
 <h2>shinyExample</h2>
 <p><em>shinyExample</em> calls a Shiny app which can run R-, Octave- of Stata programs which produce only console output or one plot.</p>
@@ -73,11 +81,11 @@
 <li><em>L=</em> link to an specific version of output (if not given <em>L=0000000000000</em> is assumed)</li>
 </ul>
 </div>
-<div id="installing-the-app-on-shiny-server" class="section level2">
-<h2>Installing the app on Shiny server</h2>
+<div id="installing-the-app-on-a-shiny-server" class="section level2">
+<h2>Installing the app on a Shiny server</h2>
 <ol style="list-style-type: decimal">
 <li>You copy everything under <em>inst/examples</em> into a shiny apps directoy of the server, e.g. <em>/srv/shiny-server/examples</em></li>
-<li>The subdirectory <em>tmp</em> should be writetable for the Shiny server. Here you should place also all the data files you example programs might need.</li>
+<li>The subdirectory <em>tmp</em> should be writetable for the Shiny server. Here you should place also all the data files your example programs might need.</li>
 <li>The subdirectory <em>R</em> contains your example programs, maybe with a further subdirectory structure.</li>
 </ol>
 </div>

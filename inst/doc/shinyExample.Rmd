@@ -13,6 +13,14 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Installation from github
+
+To install the package from GitHub use the [devtools package](https://cran.r-project.org/package=devtools):
+
+> devtools::install_github('sigbertklinke/shinyExample')
+
+Note: To use the Shiny app you need to have installed [Ghostscript](https://www.ghostscript.com/) and [ImageMagick](https://www.imagemagick.org) before.
+
 ## shinyExample
 
 *shinyExample* calls a Shiny app which can run R-, Octave- of Stata programs which produce only console output or one plot.
@@ -47,8 +55,8 @@ Following query parameters exists
 * *S=* some sizenames for the plot, e.g. *VGA* for 640x480. Note that seting *W* and/or *H* overwrites the settings from *S* 
 * *L=* link to an specific version of output (if not given *L=0000000000000* is assumed) 
 
-## Installing the app on Shiny server
+## Installing the app on a Shiny server
 
 1. You copy everything under *inst/examples* into a shiny apps directoy of the server, e.g. */srv/shiny-server/examples*
-2. The subdirectory *tmp* should be writetable for the Shiny server. Here you should place also all the data files you example programs might need.
+2. The subdirectory *tmp* should be writetable for the Shiny server. Here you should place also all the data files your example programs might need.
 3. The subdirectory *R* contains your example programs, maybe with a further subdirectory structure.
