@@ -9,12 +9,12 @@ fail    <- NULL
 if (Sys.info()['sysname']=="windows") {
   runcmd  <- shell
   convert <- 'magick'
-  if (runcmd(convert)==127) fail <- stop("Please install ImageMagick 7.x from www.imagemagick.org")
+  if (runcmd(convert)==127) fail <- "Please install ImageMagick 7.x from www.imagemagick.org"
 } else {
   runcmd <- system
   convert <- 'magick'
   if (runcmd(convert)==127) convert <- 'convert'
-  if (runcmd(convert)==127) fail <- stop("Please install ImageMagick from www.imagemagick.org")
+  if (runcmd(convert)==127) fail <- "Please install ImageMagick from www.imagemagick.org"
 }
 if(!is.null(fail)) stop(fail)
 
