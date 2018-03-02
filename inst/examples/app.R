@@ -16,7 +16,7 @@ if (Sys.info()['sysname']=="Windows") {
   if (runcmd(convert)==127) convert <- 'convert'
   if (runcmd(convert)==127) fail <- "Please install ImageMagick from www.imagemagick.org"
 }
-if(!is.null(fail)) { print(fail); stopApp() }
+if(!is.null(fail)) stop(fail)
 
 program <- function(x, ...) UseMethod("program")
 
