@@ -8,10 +8,12 @@ VERSION <- 1
 fail    <- NULL
 if (Sys.info()['sysname']=="Windows") {
   runcmd  <- shell
+  cmdsep  <- '&'
   convert <- 'magick.exe'
   if (runcmd(convert)==1) fail <- "Please install ImageMagick 7.x from www.imagemagick.org and restart R and RStudio"
 } else {
   runcmd <- system
+  cmdsep <- ';'
   convert <- 'magick'
   if (runcmd(convert)==127) convert <- 'convert'
   if (runcmd(convert)==127) fail <- "Please install ImageMagick from www.imagemagick.org"
@@ -197,7 +199,7 @@ imageR <- function(prg) {
 	                    sep="\n")
 	writeLines(fullsource, paste0(cprg['tmp'], '/', cprg['long'], '.R'))
 	# run
-	cmd <- sprintf('cd %s; %s CMD BATCH -q --vanilla %s.R', cprg['tmp'], Sys.which('R'), cprg['long'])
+	cmd <- sprintf('cd %s%s %s CMD BATCH -q --vanilla %s.R', cprg['tmp'], cmdsep, Sys.which('R'), cprg['long'])
 	runcmd(cmd, wait=TRUE)
 	# post
 	res   <- readLines(paste0(cprg['tmp'], '/', cprg['long'], '.Rout'))
@@ -213,7 +215,7 @@ stata <- function(prg) {
 	                    sep="\n")
   writeLines(fullsource, paste0(cprg['tmp'], '/', cprg['long'], '.do'))
   # run
-	cmd <- sprintf('cd %s; /usr/local/Stata15/stata -q -b do %s', cprg['tmp'], cprg['long'])
+	cmd <- sprintf('cd %s%s /usr/local/Stata15/stata -q -b do %s', cprg['tmp'], cmdsep, cprg['long'])
 	runcmd(cmd, wait=TRUE)
 	# post
 	res   <- readLines(paste0(cprg['tmp'], '/',cprg['long'], '.log'))
@@ -234,7 +236,7 @@ octave <- function(prg, size, last=FALSE) {
                   sep="\n")
   writeLines(fullsource, paste0(cprg['tmp'], '/', cprg['long'], '.m'))
   # run
-  cmd <- sprintf('cd %s; octave-cli -f -q %s.m > %s.mout', cprg['tmp'], cprg['long'],  cprg['long'])
+  cmd <- sprintf('cd %s%s octave-cli -f -q %s.m > %s.mout', cprg['tmp'], cmdsep, cprg['long'],  cprg['long'])
   runcmd(cmd, wait=TRUE)
   # post
   # post
@@ -336,7 +338,7 @@ server <- function(input, output, session) {
       prg$runtime <- as.numeric(Sys.time()-start)
 	    # pdf2png
       if (file.exists(cprg['pdf'])) {
-        cmd  <- sprintf('cd ./tmp; %s -density 150 -antialias %s.pdf -append -resize %.0fx%.0f -quality 100 %s.png', convert,
+        cmd  <- sprintf('cd ./tmp%s %s -density 150 -antialias %s.pdf -append -resize %.0fx%.0f -quality 100 %s.png', cmdsep, convert,
                         cprg['long'], as.numeric(cprg['wpx']), as.numeric(cprg['hpx']), cprg['long'])
         runcmd(cmd, wait=TRUE)
         prg$pnghash <- cprg['short']
