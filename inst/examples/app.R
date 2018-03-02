@@ -8,7 +8,7 @@ VERSION <- 1
 fail    <- NULL
 if (Sys.info()['sysname']=="Windows") {
   runcmd  <- shell
-  convert <- shell('where magick.exe')
+  convert <- 'magick.exe'
   if (runcmd(convert)==1) fail <- "Please install ImageMagick 7.x from www.imagemagick.org and restart R and RStudio"
 } else {
   runcmd <- system
