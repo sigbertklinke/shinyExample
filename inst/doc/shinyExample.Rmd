@@ -1,0 +1,54 @@
+--- 
+title: "shinyExample" 
+author: "Sigbert Klinke" 
+date: "`r Sys.Date()`" 
+output: rmarkdown::html_vignette 
+vignette: > 
+  %\VignetteIndexEntry{shinyExample} 
+  %\VignetteEngine{knitr::rmarkdown} 
+  \usepackage[utf8]{inputenc} 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## shinyExample
+
+*shinyExample* calls a Shiny app which can run R-, Octave- of Stata programs which produce only console output or one plot.
+
+![](mmstat1.png)
+
+Clicking on the ![](ExampleButton2.png) opens a sidebar which allows further operations:
+
+* Viewing the source code, the console output and the plot separately
+* Download the source code, the console output or a PDF file of the plot 
+* Loading another program snippet
+* Rerun the current program snippet
+* Load results of older reruns of the current program snippet
+
+![](mmstat2.png)
+
+The Shiny app will run in R, but of course is intended to be embedded via an *iframe* into web pages. With URL given you can determine the starting parameters of the app. The URL
+
+https://shinyapps.wiwi.hu-berlin.de/examples?P=stat/Statistik/lottozahlen.R&V=P
+
+forces the example app to open the given program (assumed it exists on the server) and to show the plot window. For *MediaWiki* exists the [Iframe extension](https://www.mediawiki.org/wiki/Extension:Iframe) to embed the app.
+
+Following query parameters exists
+
+* *P=* path and name of program to run
+    + *xxx.R* denotes a [R](https://www.r-project.org/) program
+    + *xxx.m* denotes a [Octave](https://www.gnu.org/software/octave/) program
+    + *xxx.do* denotes a [Stata](https://www.stata.com/) progfamm
+* *V=* view of program result with three possible values: *Source*, *Console* or *Plot*
+* *W=* width of plot (in pixel, default: 800)
+* *H=* height of plot (in pixel, default: 600)
+* *S=* some sizenames for the plot, e.g. *VGA* for 640x480. Note that seting *W* and/or *H* overwrites the settings from *S* 
+* *L=* link to an specific version of output (if not given *L=0000000000000* is assumed) 
+
+## Installing the app on Shiny server
+
+1. You copy everything under *inst/examples* into a shiny apps directoy of the server, e.g. */srv/shiny-server/examples*
+2. The subdirectory *tmp* should be writetable for the Shiny server. Here you should place also all the data files you example programs might need.
+3. The subdirectory *R* contains your example programs, maybe with a further subdirectory structure.
