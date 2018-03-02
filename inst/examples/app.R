@@ -5,10 +5,18 @@ library("shinydashboard")
 library("shinyFiles")
 
 VERSION <- 1
-convert <- 'magick'
-runcmd  <- if (Sys.info()['sysname']=="windows") shell else system
-if (runcmd(convert)==127) convert <- 'convert'
-if (runcmd(convert)==127) stop("Please install ImageMagick from www.imagemagick.org")
+fail    <- NULL
+if (Sys.info()['sysname']=="windows") {
+  runcmd  <- shell
+  convert <- 'magick'
+  if (runcmd(convert)==127) fail <- stop("Please install ImageMagick 7.x from www.imagemagick.org")
+} else {
+  runcmd <- system
+  convert <- 'magick'
+  if (runcmd(convert)==127) convert <- 'convert'
+  if (runcmd(convert)==127) fail <- stop("Please install ImageMagick from www.imagemagick.org")
+}
+if(!is.null(fail)) stop(fail)
 
 program <- function(x, ...) UseMethod("program")
 
@@ -328,8 +336,8 @@ server <- function(input, output, session) {
       prg$runtime <- as.numeric(Sys.time()-start)
 	    # pdf2png
       if (file.exists(cprg['pdf'])) {
-        cmd  <- sprintf('cd ./tmp; convert -density 150 -antialias %s.pdf -append -resize %.0fx%.0f -quality 100 %s.png', cprg['long'],
-                        as.numeric(cprg['wpx']), as.numeric(cprg['hpx']), cprg['long'])
+        cmd  <- sprintf('cd ./tmp; %s -density 150 -antialias %s.pdf -append -resize %.0fx%.0f -quality 100 %s.png', convert,
+                        cprg['long'], as.numeric(cprg['wpx']), as.numeric(cprg['hpx']), cprg['long'])
         runcmd(cmd, wait=TRUE)
         prg$pnghash <- cprg['short']
         if (file.exists(cprg['png'])) prg$pnghash <- digest(readBin(cprg['png'], 'raw', n=as.integer(file.info(cprg['png'])['size']), size=1), 'sha512')
