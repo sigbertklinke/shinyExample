@@ -10,13 +10,13 @@ if (Sys.info()['sysname']=="Windows") {
   runcmd  <- shell
   cmdsep  <- '&'
   convert <- 'magick.exe'
-  if (runcmd(convert)==1) fail <- "Please install ImageMagick 7.x from www.imagemagick.org and restart R and RStudio"
+  if (runcmd(convert)==1) fail <- "Please install Ghostscript (www.ghostscript.com) and ImageMagick 7.x (www.imagemagick.org) and restart R and RStudio"
 } else {
   runcmd <- system
   cmdsep <- ';'
   convert <- 'magick'
   if (runcmd(convert)==127) convert <- 'convert'
-  if (runcmd(convert)==127) fail <- "Please install ImageMagick from www.imagemagick.org"
+  if (runcmd(convert)==127) fail <- "Please install ImageMagick from www.imagemagick.org and restart R and RStudio"
 }
 if(!is.null(fail)) stop(fail)
 
