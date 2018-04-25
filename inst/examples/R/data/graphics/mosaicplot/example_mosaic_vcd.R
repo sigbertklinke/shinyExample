@@ -1,0 +1,2 @@
+library("vcd")
+mosaic(Titanic)

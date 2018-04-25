@@ -1,0 +1,5 @@
+x <- c(0:6)
+y <- c(0.05, 0.1, 0.15, 0.2, 0.25)
+plot(rep(0.18,times=6), type="h", main="Wahrscheinlichkeitsfunktion", axes=FALSE, ylab="f(x)", xlab="x", col="blue", lwd=6)
+axis (side=2, at=y,)
+axis (side=1, at=x, tck=0)

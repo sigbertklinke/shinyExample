@@ -1,0 +1,16 @@
+library("entropy")
+nx <- seq(0,1,length.out=25)
+ny <- seq(0,1,length.out=25)
+z <- matrix(NA, ncol=length(nx), nrow=length(ny))
+for (i in seq(nx)) {
+  for (j in seq(ny)) {
+    if (nx[i]+ny[j]<=1) {
+      z[i,j] <- entropy(c(nx[i], ny[j], 1-nx[i]-ny[j]))/log(3)
+    }
+  }
+}
+pdf("normentropy.pdf", width=10, height=5)
+par(mfrow=c(1,2))
+persp(nx, ny, z, xlab="p1", ylab="p2", zlab="HN", phi=45, theta=55)
+contour(nx, ny, z, type="n", xlab="p1", ylab="p2")
+dev.off()

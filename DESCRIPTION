@@ -1,7 +1,7 @@
 Package: shinyExample
 Type: Package
 Title: Shiny apps to run simple interactive programs
-Version: 0.1.0
+Version: 0.2.0
 Author: Sigbert Klinke
 Maintainer: Sigbert Klinke <sigbert@hu-berlin.de>
 Description: Shiny apps to run simple interactive programs.

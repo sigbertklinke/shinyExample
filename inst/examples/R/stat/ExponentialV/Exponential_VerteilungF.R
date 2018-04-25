@@ -1,0 +1,1 @@
+curve(from=0.0, to=3.5, pexp(x, rate=2), main="Verteilungsfunktion der EX(2)", ylab="F(x)", col="red", ylim=c(0.0,1.0), lty=1, lwd=4, font.lab=2, "yaxs"="i", "xaxs"="i")

@@ -1,0 +1,15 @@
+curve(from=0, to=20, dchisq(x, df=1), ylab="f(x)", col="black", ylim=c(0.0,0.4), lty=1, lwd=4, font.lab=2, xaxp = c(0, 20, 4), yaxp=c(0.0, 0.4, 4), "yaxs"="i")
+par(new=TRUE)
+curve(from=0, to=20, dchisq(x, df=3), ylab="f(x)", col="red", ylim=c(0.0,0.4), lty=1, lwd=4, font.lab=2, xaxp = c(0, 20, 4), yaxp=c(0.0, 0.4, 4), "yaxs"="i")
+par(new=TRUE)
+curve(from=0, to=20, dchisq(x, df=5), ylab="f(x)", col="blue", ylim=c(0.0,0.4), lty=1, lwd=4, font.lab=2, xaxp = c(0, 20, 4), yaxp=c(0.0, 0.4, 4), "yaxs"="i")
+par(new=TRUE)
+curve(from=0, to=20, dchisq(x, df=10), ylab="f(x)", col="green", ylim=c(0.0,0.4), lty=1, lwd=4, font.lab=2, xaxp = c(0, 20, 4), yaxp=c(0.0, 0.4, 4), "yaxs"="i")
+
+text(2, 0.35, "f=1", col="black")
+text(3, 0.22, "f=3", col="red")
+text(6, 0.14, "f=5", col="blue")
+text(12, 0.1, "f=10", col="green")
+
+title(main="Dichtefunktion (Chi^2-Verteilung)")
+box(which="outer")

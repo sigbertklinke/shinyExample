@@ -1,0 +1,6 @@
+curve(from=0, to=35, dchisq(x, df=10), xaxt="n", ylab="f(v)", xlab="", col="red", ylim=c(0.0,0.12), lty=1, lwd=4, font.lab=2, "xaxs"="i" ,"yaxs"="i", bty="l")
+abline(v=20, col="black", lwd=3, lty=1)
+text(21, 0.003, expression(alpha), col = "black", cex=2)
+text(9, 0.04, expression(paste("1-", alpha)), col = "black", cex=2)
+text(20, -0.0014, , col = "black", cex=1.7)
+axis( side=1, at=c(20, 35), labels=c(expression(paste(chi^2, ""[1-alpha], ""[";"], ""[f])), "v"), tick=FALSE, cex.axis=1.5)

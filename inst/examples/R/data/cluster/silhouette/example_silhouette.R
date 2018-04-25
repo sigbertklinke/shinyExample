@@ -1,0 +1,15 @@
+zfaithful <- scale(faithful)
+# hclust
+d    <- dist(zfaithful)
+cl1  <- hclust(d, method="ward.D2")
+memb2 <- cutree(cl1, 2)
+memb3 <- cutree(cl1, 3)
+#
+library("cluster")
+par(mfcol=c(2,2))
+plot(zfaithful, col=memb2)
+s2 <- silhouette(memb2, d)
+plot(s2, col=1:2, border=NA)
+plot(zfaithful, col=memb3)
+s3 <- silhouette(memb3, d)
+plot(s3, col=1:3, border=NA)

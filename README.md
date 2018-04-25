@@ -28,7 +28,7 @@ runShinyExample()
 
 ## Author(s)
 
-* [SigbertKlinke](https://github.com/sigbertklinke)
+* [Sigbert Klinke](https://github.com/sigbertklinke)
 
 ## License
 

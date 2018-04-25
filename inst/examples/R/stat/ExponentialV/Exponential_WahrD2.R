@@ -1,0 +1,1 @@
+curve(from=0.0, to=3.5, dexp(x, rate=2), main="Wahrscheinlichkeitsdichte der EX(2)", ylab="f(x)", col="darkblue", ylim=c(0.0,2.0), lty=1, lwd=4, font.lab=2, "yaxs"="i", "xaxs"="i")

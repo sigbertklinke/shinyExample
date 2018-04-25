@@ -1,0 +1,5 @@
+x <- c(0.5, 2)
+y <- c(0.2, 0.2)
+plot(x, y, type="l", xaxt="n", yaxt="n", xlab="X", ylab="f(X)", col="blue", lwd=3, ylim = c(0, 0.24), xlim= c(0, 2.5))
+axis (side=1, at=c(0.5,2), labels=c("a","b"))
+axis (side=2, at=c(0.00, 0.08, 0.16, 0.24))

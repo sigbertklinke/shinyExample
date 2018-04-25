@@ -1,0 +1,2 @@
+library("vcd")
+cotabplot(Titanic)

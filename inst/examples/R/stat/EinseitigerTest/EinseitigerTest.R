@@ -1,0 +1,23 @@
+par(mfrow=c(2,1))
+#
+curve(from=-4, to=4, dnorm(x, mean=0, sd=1), xaxt="n", yaxt="n",ylab="", xlab="", col="red", ylim=c(0.0,0.45),
+      lty=1, lwd=4, font.lab=2, "xaxs"="i" ,"yaxs"="i", bty="l", main="Linksseitiger Test")
+abline(v=-2, col="black", lwd=2)
+abline(v=0.0, col="black", lwd=4, lty=2)
+text(0, 0.15, expression(paste("1-" , alpha)), col = "black", cex=2.5, pos=4)
+text(-2.2, 0.01, expression(paste(alpha)), col = "black", cex=1.2)
+axis( side=1, at=c(-2, 0, 4), labels=c(expression(C), expression(theta[0]), "V"), tick=FALSE)
+axis( side=2, at=c(0.39), labels=c("f(V)"), tick=FALSE)
+text(-3, 0.42, expression(paste("Ablehnungsbereich ", H[0])))
+text(0, 0.42, expression(paste("Annahmebereich ", H[0])))
+#
+curve(from=-4, to=4, dnorm(x, mean=0, sd=1), xaxt="n", yaxt="n",ylab="", xlab="", col="red", ylim=c(0.0,0.45),
+      lty=1, lwd=4, font.lab=2, "xaxs"="i" ,"yaxs"="i", bty="l", main="Rechtsseitiger Test")
+abline(v=2, col="black", lwd=2)
+abline(v=0.0, col="black", lwd=4, lty=2)
+text(0, 0.15, expression(paste("1-" , alpha)), col = "black", cex=2.5, pos=2)
+text(2.1, 0.01, expression(alpha), col = "black", cex=1.2)
+axis( side=1, at=c(0, 2, 4), c(expression(theta[0]), expression(C), "V"), tick=FALSE)
+axis( side=2, at=c(0.39), labels=c("f(V)"), tick=FALSE)
+text(+3, 0.42, expression(paste("Ablehnungsbereich ", H[0])))
+text(0, 0.42, expression(paste("Annahmebereich ", H[0])))

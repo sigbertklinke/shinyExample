@@ -1,0 +1,12 @@
+setwd('/home/sk/unison/Daten')
+library("foreign")
+Boston <- read.spss("BOSTONC.SAV", to.data.frame=T)
+pdf("boston_pts.pdf", width=5, height=6)
+plot(Boston$LON, Boston$LAT, pch=19, asp=T, cex=0.4, col=Boston$CHAS)
+dev.off()
+#
+library("ggmap")
+map <- get_map(location=c(-71.5, 42.1, -70.5, 42.6), source="osm")
+pdf("boston_osm.pdf", width=5, height=6)
+ggmap(map)
+dev.off()

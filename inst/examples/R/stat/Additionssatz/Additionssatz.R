@@ -1,0 +1,10 @@
+
+x <- seq(-4, 4,by=.1)
+plot(x, dnorm(x), type = "l", col ="black", axes = FALSE, lwd = 3, ylim = c(0, 0.4), xlab = "", ylab ="")
+axis(1, at = c(-4, 1.1, 1.6, 4), labels = c("", "v", "c", ""), font=2, pos = 0, tck = 0)
+axis(2, at = c(0, 0.4), labels = c("", "f(v)"), pos = -4, tck = 0, font=2)
+points(-4, 0.4, pch = 17)
+lines(x = c(1.1, 1.1), y = c(0, 0.4),col ="gray", lty = 3, lwd = 3)
+lines(x = c(1.6, 1.6), y = c(0, 0.4),col ="gray", lwd = 3)
+text(x= 1.9, y= 0.03, labels=expression(alpha), font=2)
+text(x= 1.4, y= 0.09, labels="P")

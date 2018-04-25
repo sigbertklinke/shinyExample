@@ -1,0 +1,6 @@
+pdf("ppplot0.pdf", bg="transparent")
+probSample <- pnorm(iris$Petal.Length, mean=mean(iris$Petal.Length), sd=sd(iris$Petal.Length))
+probTheo   <- ppoints(length(iris$Petal.Length))
+plot(probTheo, sort(probSample), main="Normal P-P Plot iris$Petal.Length", pch=19, cex=0.5, xlab="Expected Probabilities", ylab="Observed Probabilities")
+abline(0,1)
+dev.off()

@@ -1,0 +1,8 @@
+curve(from=-4, to=4, dnorm(x, mean=0, sd=1), xaxt="n", ylab="f(z)", xlab="z", main="Zentrales Schwankungsintervall einer normalverteilten Zufallsvariablen", col="red", ylim=c(0.0,0.4), lty=1, lwd=4, font.lab=2, "xaxs"="i" ,"yaxs"="i", bty="l")
+abline(v=-2, col="orange", lwd=2)
+abline(v=2, col="orange", lwd=2)
+#abline(h=0.0)
+text(0, 0.15, expression(paste("1-" , alpha)), col = "black", cex=2.5)
+text(-2.3, 0.01, expression(paste(alpha, "/2")), col = "black", cex=1.2)
+text(2.3, 0.01, expression(paste(alpha, "/2")), col = "black", cex=1.2)
+axis( side=1, at=c(-2, 2, 4), labels=c(expression(paste(mu, "-z", sigma)), expression(paste(mu, "+z", sigma)), "z"), tick=FALSE)

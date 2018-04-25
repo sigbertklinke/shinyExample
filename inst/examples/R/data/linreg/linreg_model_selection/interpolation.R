@@ -1,0 +1,16 @@
+set.seed(1)
+n <- 10
+x <- runif(n)
+y <- (x-0.5)^2+0.01*rnorm(10)
+pdf("interpolation.pdf", width=4, height=4)
+par(mar=c(0,0,0,0))
+plot(x,y, xlim=c(0,1), ylim=c(0, 1.2*max(y)), axes=F, xlab="", ylab="", pch=19)
+box()
+xnew <- (0:1000)/1000
+lm2  <- lm(y~poly(x,2))
+ynew <- predict(lm2, newdata = data.frame(x=xnew))
+lines(xnew, ynew, col="blue")
+lm9  <- lm(y~poly(x,9))
+ynew <- predict(lm9, newdata = data.frame(x=xnew))
+lines(xnew, ynew, col="red")
+dev.off()

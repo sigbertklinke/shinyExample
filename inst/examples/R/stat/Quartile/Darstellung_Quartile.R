@@ -1,0 +1,13 @@
+x <- c(0, 1.6, 2.1, 3, 4, 4.5, 6, 7)
+y <- c(0, 0.15, 0.25, 0.50, 0.69, 0.75, 1, 1)
+plot( x, y,xlim=c( 0, 7), ylim=c(0, 1), type="l", lwd=2, axes=FALSE, xlab="X (in DM)", 
+      ylab="F(X)", font.lab=2)
+axis(1, at= x, labels = c( "", "", "1536", "2385", "", "3568", "5000", ""), tck=0, pos=0)
+axis(2, at = y, labels = c("", "", "0.25", "0.50", "", "0.75", "1", "1"), tck = 0, las = 1, pos=0, xpd=TRUE)
+lines(x = c(2.1,2.1), y = c(0, 0.25), lty=2)
+lines(x = c(0,2.1), y = c(0.25, 0.25), lty=2)
+lines(x = c(3,3), y = c(0, 0.5), lty=2)
+lines(x = c(0,3), y = c(0.5, 0.5), lty=2)
+lines(x = c(4.5,4.5), y = c(0, 0.75), lty=2)
+lines(x = c(0,4.5), y = c(0.75, 0.75), lty=2)
+lines(x = c(6,7), y = c(1, 1), lty=2, col="WHITE", lwd=2)

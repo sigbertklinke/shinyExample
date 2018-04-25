@@ -1,0 +1,10 @@
+library("foreign")
+library("psych")
+x <- read.spss("BANK2.sav", to.data.frame=T)
+
+pdf("scree.pdf", width=10, height=7, bg="transparent")
+par(mfrow=c(1,2))
+pc <- prcomp(x, scale=T, center=T)
+plot(pc$sdev^2, type="b", ylim=c(0, max(pc$sdev^2)), main="Scree plot (handmade)")
+scree(x, main="Scree plot (psych)")
+dev.off()

@@ -1,0 +1,21 @@
+library("MASS")
+pdf("missing2.pdf", width=10, height=7)
+par(mfrow=c(2,2), mar=c(0,0,3,0))
+plot(Boston$lstat, Boston$medv, pch=19, cex=0.5, ylim=c(0,max(Boston$medv)), main="Full data (x: LSTAT, y: MEDV)", xlab="LSTAT", ylab="MEDV", axes=F)
+box()
+p    <- 1/4
+mcar <- runif(nrow(Boston))<p
+plot(Boston$lstat, Boston$medv, pch=19, cex=0.5, ylim=c(0,max(Boston$medv)), main="MCAR", xlab="LSTAT", ylab="MEDV", col=ifelse(mcar, 'coral', 'black'), axes=F)
+box()
+rug(Boston$lstat[mcar], col="coral")
+mar <- abs(Boston$lstat-median(Boston$lstat))/IQR(Boston$lstat)
+mar[mar>1] <- 1
+mar <- runif(nrow(Boston))<(mar*p/mean(mar))
+plot(Boston$lstat, Boston$medv, pch=19, cex=0.5, ylim=c(0,max(Boston$medv)), main="MAR", xlab="LSTAT", ylab="MEDV", col=ifelse(mar, 'coral', 'black'), axes=F)
+box()
+rug(Boston$lstat[mar], col="coral")
+mnar <- (Boston$medv>quantile(Boston$medv, 1-p))
+plot(Boston$lstat, Boston$medv, pch=19, cex=0.5, ylim=c(0,max(Boston$medv)), main="MNAR", xlab="LSTAT", ylab="MEDV", col=ifelse(mnar, 'coral', 'black'), axes=F)
+box()
+rug(Boston$lstat[mnar], col="coral")
+dev.off()

@@ -1,0 +1,6 @@
+par(mar=c(1, 0, 1, 0))
+zweiphh = c(210, 250, 340, 360, 400, 430, 440, 450, 530, 630)
+vierphh = c(340, 350, 360, 380, 390, 410, 420, 440, 460, 490)
+plot(c(zweiphh, vierphh), c(rep(1,10), rep(0,10)), axes = FALSE, xlab="", ylab="")
+abline(h=1, lty=1)
+abline(h=0, lty=1)

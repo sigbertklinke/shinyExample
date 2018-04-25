@@ -1,0 +1,1 @@
+mosaicplot(Titanic)
