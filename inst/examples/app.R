@@ -72,7 +72,7 @@ program.default <- function (x, ...) {
 
   wh <- sprintf("%05i%05i", as.integer(prg$width), as.integer(prg$height))
   fn <- gsub('.', '_', paste0(prg$path[-(1:2)], collapse="_"), fixed=TRUE)
-  
+
   prg$digest.short <- paste0(fn, wh)
   prg$digest.long  <- paste0(fn, wh, prg$time)
   #
@@ -215,15 +215,15 @@ footer <- function(prg, type='S') {
   tags$div(
     tags$div(id=paste0("shinyExampleTable", type), style="display:none;",
       tags$table(width="100%",
-        tags$tr(style="font-size:small;", 
-                tags$td(tags$b('File: '), fn, ' (', time, ')'), 
-                tags$td(tags$b('Created: '), date), 
+        tags$tr(style="font-size:small;",
+                tags$td(tags$b('File: '), fn, ' (', time, ')'),
+                tags$td(tags$b('Created: '), date),
                 tags$td(align="right",
                         tags$a(target="_blank", href=paste0(prg$url, static),
                                "STATIC"
                               ))
                ),
-        tags$tr(style="font-size:small;", 
+        tags$tr(style="font-size:small;",
                 tags$td(colspan="3", align="center",
                        "(C) 2017- Sigbert Klinke, Humboldt-Universität zu Berlin, supported by ",
                         tags$a(target="_blank", href="https://www.wihoforschung.de/de/flipps-1327.php",
@@ -232,16 +232,16 @@ footer <- function(prg, type='S') {
                )
       )
     ),
-    tags$div(id=paste0("shinyExampleInteractive", type), style="display:none;",  
-             tags$table(width="100%", style="font-size:x-small;text-align:center;", 
+    tags$div(id=paste0("shinyExampleInteractive", type), style="display:none;",
+             tags$table(width="100%", style="font-size:x-small;text-align:center;",
                         tags$tr(tags$td(tags$a(target="_blank", href=paste0(prg$url, '?P=', fn, '&V=', type, '&W=', prg$width, '&H=', prg$height),
                                                "INTERACTIVE"))))),
     HTML(sprintf('<script>console.log("TEST");
-                  if (typeof inShinyExample !== "undefined") { 
+                  if (typeof inShinyExample !== "undefined") {
                     document.getElementById("shinyExampleTable%s").style.display = "block";
                   } else {
-                    document.getElementById("shinyExampleInteractive%s").style.display = "block"; 
-                  }</script>', type, type))   
+                    document.getElementById("shinyExampleInteractive%s").style.display = "block";
+                  }</script>', type, type))
   )
 }
 
@@ -288,7 +288,8 @@ ui <- dashboardPage(
 		shinyFilesButton('files', 'File select', 'Please select a file', FALSE, class="marginLeft"),
 		selectInput("history", "History", choices=NULL),
     #sliderInput('history', "History", min=1, max=1, value=1, step=1),
-		HTML('<br><br>'),
+    actionButton(inputId='Overview', label="File overview",
+                 onclick ="window.open('overview.html', '_blank')"),
 		div(img(src='spinner.gif', style="margin-left:3px"),
 		    div(h2('0', id="progress-text"), style="position:absolute;margin:auto;left:0;right:0;top:50%;transform:translateY(-50%);"),
 		    id="progress-spinner", style="text-align:center;position:relative;visibility:hidden"),
@@ -348,7 +349,7 @@ server <- function(input, output, session) {
 	  if (!run) {
   	  run <- TRUE
 	    if (file.exists(prg$rds)) {
-	      # RDS file exists, check for old version 
+	      # RDS file exists, check for old version
 	      prgrds <- readRDS(prg$rds)
 	      files  <- paste0('./www/', c(prgrds$png, prgrds$pdf,  prgrds$plot,  prgrds$source,  prgrds$console))
 	      run    <- is.null(prgrds$version) || (prgrds$version<VERSION)	|| !all(file.exists(files))
@@ -398,7 +399,7 @@ server <- function(input, output, session) {
         pngfile <- pp('run', prg$png, '')
         if (file.exists(pngfile)) {
           txt <- base64Encode(readBin(pngfile, "raw", file.info(pngfile)[1, "size"]), "txt")
-        } 
+        }
 #        prg$pnghash <- cprg['short']
 #        if (file.exists(cprg['png'])) prg$pnghash <- digest(readBin(cprg['png'], 'raw', n=as.integer(file.info(cprg['png'])['size']), size=1), 'sha512')
       }
@@ -453,7 +454,7 @@ server <- function(input, output, session) {
 	    isolate(updateTabItems(session, 'tabs', input$tabs))
 	   })
 	})
-	
+
   observeEvent(input$history, # history choice
   { #browser()
    	if ((input$history!="")  && (input$history!=rv$prg$time)) isolate({
@@ -528,7 +529,7 @@ server <- function(input, output, session) {
 	output$source <- renderUI({
 	  includeHTML(pp('www', rv$prg$source, ''))
 	})
-	
+
 	output$download <- downloadHandler(
 	  filename = function() {
 	    isolate({
@@ -545,13 +546,13 @@ server <- function(input, output, session) {
 	  content = function(file) {
 	    isolate({
 	      #browser()
-   	    if (input$tabs=='source')  file.copy(rv$prg$file, file, overwrite=TRUE) 
+   	    if (input$tabs=='source')  file.copy(rv$prg$file, file, overwrite=TRUE)
 	      if (input$tabs=='console') write(rv$prg$out, file)
 	      if (input$tabs=='plot')    file.copy(pp('run', rv$prg$pdf, ''), file, overwrite=TRUE)
 	    })
 	  }
 	)
-	
+
 }
 
 shinyApp(ui, server)

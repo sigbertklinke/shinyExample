@@ -1,0 +1,13 @@
+> pdf("noprg_R00480004800000000000000.pdf", width=7.0, height=7.0)
+> cat("<!--START-->\n")
+<!--START-->
+> "Please select a file"
+[1] "Please select a file"
+> #<!--END-->
+> dev.off()
+null device 
+          1 
+> 
+> proc.time()
+       User      System verstrichen 
+      0.376       0.350       0.295 
