@@ -1,4 +1,3 @@
-graphics.off()
 x=c(0:8)
 H1<- dhyper(x, n=80, m=20, k=10)
 H2<- dhyper(x, n=8, m=8, k=8)

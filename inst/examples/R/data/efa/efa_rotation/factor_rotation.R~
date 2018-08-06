@@ -1,4 +1,3 @@
-library("scatterplot3d")
 library("MASS")
 set.seed(150742)
 n   <- 20

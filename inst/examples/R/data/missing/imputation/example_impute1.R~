@@ -1,5 +1,5 @@
-library("haven")
-x <- read_spss("ALLBUS2012.SAV")
+library("foreign")
+x <- read.spss("ALLBUS2012.SAV", to.data.frame=T)
 body <- as.data.frame(x[,c(220,593,595)])
 names(body) <- c("age", "height", "weight")
 # number of NAs

@@ -25,7 +25,7 @@ s <- sort(BostonHousing[,13], index.return=T)
 x <- BostonHousing[s$ix,13]
 r <- -0.01*runif(length(x))-0.005
 pdf("KernelDensityEstimator.pdf", bg="transparent")
-hist(x, freq=FALSE, ylim=c(-0.015, 0.07), col="gray", xlab="Anteil der Unterschichtbevoelkerung pro Bezirk (in %)", ylab="Dichte",  main="Dotplot, Histogramm und Kerndichteschaetzer", bg="transparent")
+hist(x, freq=FALSE, ylim=c(-0.015, 0.07), col="gray", xlab="Anteil der Unterschichtbevölkerung pro Bezirk (in %)", ylab="Dichte",  main="Dotplot, Histogramm und Kerndichteschätzer", bg="transparent")
 d1<-npudens(x, bws=1.5)
 lines(x, fitted(d1), col="red", lwd=2)
 d2<-npudens(x, bws=1)
@@ -34,5 +34,5 @@ d3<-npudens(x, bws=0.5)
 lines(x, fitted(d3), col="green", lwd=2)
 points(x,r, cex=0.5)
 legend("topright", legend=c("h=1,5", "h=1,0", "h=0,5"), col=c("red", "blue", "green"),
-       lwd=2, lty=1, title="Kerndichteschaetzer")
+       lwd=2, lty=1, title="Kerndichteschätzer")
 dev.off()

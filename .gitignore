@@ -2,12 +2,4 @@
 .Rhistory
 .RData
 .Ruserdata
-tmp/*.rds 
-tmp/*.R 
-tmp/*.Rout 
-tmp/*.pdf 
-tmp/*.png 
-tmp/*.m 
-tmp/*.do 
-tmp/*.log 
-tmp/*.mout
+tmp/

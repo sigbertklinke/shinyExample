@@ -9,6 +9,7 @@ surv <- titanic$survived[index[1:22]]
 
 pred <- apply(table(age, surv), 1, which.max)
 
+pdf("RCART3a.pdf", width=10, height=4)
 plot(0,0, type="n", xlim=c(0,1), ylim=c(-0.7, 1.7), xlab="Age", axes=F, ylab="Survived")
 
 axis(1)
@@ -39,6 +40,8 @@ for (i in 1:(length(predage)-1)) {
 }
 right<-max(predage)
 lines(c(left,right), c(0.5,0.5), col=bluered[pred[length(predage)]], lwd=5)
+
+dev.off()
 
 age <- titanic$age[index[1:1046]]
 surv <- titanic$survived[index[1:1046]]

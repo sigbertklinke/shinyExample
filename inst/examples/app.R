@@ -1,11 +1,10 @@
 library("digest")
 library("RCurl")
 library("shiny")
-library("shinyjs")
 library("shinydashboard")
 library("shinyFiles")
 
-VERSION <- 2
+VERSION <- 3 # increasing forces each program to rerun if touched
 if (file.exists('rds/shinyExample.rds')) {
   sys <- readRDS('rds/shinyExample.rds')
 } else {
@@ -129,11 +128,12 @@ imageR <- function(prg) {
   # pre
   win <- round(7.0*as.numeric(prg$width)/480.0, 1)
   hin <- round(7.0*as.numeric(prg$height)/480.0, 1)
-	fullsource <- paste(sprintf('pdf("%s", width=%.1f, height=%.1f)', prg$pdf, win, hin),
+	fullsource <- paste('dev.off <- pdf <- postscript <- png <- bmp <- jpeg <- tiff <- function(...) {invisible(NULL)}',
+	                     sprintf('grDevices::pdf("%s", width=%.1f, height=%.1f)', prg$pdf, win, hin),
 	                    "cat(\"<!--START-->\\n\")",
 	                     prg$code,
 	                    '#<!--END-->',
-                      'dev.off()',
+                      'grDevices::dev.off()',
 	                    sep="\n")
 	writeLines(fullsource, pp('run', prg$digest.long, '.R'))
 	# run
@@ -236,7 +236,7 @@ footer <- function(prg, type='S') {
              tags$table(width="100%", style="font-size:x-small;text-align:center;",
                         tags$tr(tags$td(tags$a(target="_blank", href=paste0(prg$url, '?P=', fn, '&V=', type, '&W=', prg$width, '&H=', prg$height),
                                                "INTERACTIVE"))))),
-    HTML(sprintf('<script>console.log("TEST");
+    HTML(sprintf('<script>
                   if (typeof inShinyExample !== "undefined") {
                     document.getElementById("shinyExampleTable%s").style.display = "block";
                   } else {
@@ -269,8 +269,9 @@ ui <- dashboardPage(
 #		tags$style(".left-side, .main-sidebar {padding-top: 20px}"),
     tags$style(".left-side, .main-sidebar {top: auto; padding-top: 0px}"),
 		tags$style(".skin-blue .sidebar a { color: #444; }"),
-		useShinyjs(),
-		extendShinyjs(script="example.js"),
+    tags$script(src = "example.js"),
+#		useShinyjs(),
+#		extendShinyjs(script="example.js"),
 #		HTML('<br>'),
 		sidebarMenu(id="tabs",
    		menuItem("Source", tabName = "source", icon=icon("align-left", lib = "glyphicon")),
@@ -297,6 +298,7 @@ ui <- dashboardPage(
 		collapsed=FALSE
 	),
 	dashboardBody(
+	  tags$head(tags$script(src='example2.js')),
 #	  uiOutput("tabbox"),
 	  tabItems(
 	    tabItem(tabName = "source",
@@ -372,7 +374,9 @@ server <- function(input, output, session) {
 	  # run program
 	  if (run) {
 	    prg$code  <- paste0(readLines(prg$file), collapse="\n")
-	    js$spinner('visible')
+#	    js$spinner('visible')
+	    session$sendCustomMessage('spinner', 'visible')
+	    Sys.sleep(0.010)
 	    start <- Sys.time()
       #
 	    isolate({
@@ -432,7 +436,8 @@ server <- function(input, output, session) {
 #	    }
 #	    ###
 	    saveRDS(prg, prg$rds)
-	    js$spinner('hidden')
+#	    js$spinner('hidden')
+	    session$sendCustomMessage('spinner', 'hidden')
 	  }
 	  prg
 	}
