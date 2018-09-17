@@ -6,7 +6,7 @@ x <- read.csv2("cps78_85.csv")
 x <- x[x$year==85,]
 
 library("np")
-xe  <- sort(as.vector(x$exper)
+xe  <- sort(as.vector(x$exper))
 n   <- length(xe)
 jt  <- jitter(rep(-0.005, n), amount=0.005)
 

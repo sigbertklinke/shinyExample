@@ -1,11 +1,11 @@
 library("foreign")
-library("neuralnet")
+library("nnet")
 
 x     <- read.spss("BOSTONH.SAV", to.data.frame=T)
 set.seed(0)
-train <- runif(nrow(x))<2/3
-xtrain <- x[train,]
-xvalid   <- x[!train,]
+train  <- runif(nrow(x))<2/3
+xtrain <- x[train, c('MEDV', 'LSTAT')]
+xvalid <- x[!train, c('MEDV', 'LSTAT')]
 B <- 30
 err.train <- err.valid <- rep(NA, B)
 for (i in 1:B) {

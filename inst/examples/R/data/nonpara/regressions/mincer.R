@@ -49,12 +49,12 @@ plotModel <- function (regobj, x, educ, exper, maxres, pp=list(cex=0.75), header
   s3d<-scatterplot3d(xr, yr, zr, type="n", ...)
   s3d$points3d(x$educ, x$exper, rep(ifelse(front[3], zr[1], zr[2]), n), col="gray", cex=0.25)
   s3d$points3d(x$educ, rep(ifelse(front[2], yr[1], yr[2]), n), x$lwage, col="gray", cex=0.25)
-  s3d$points3d(rep(ifelse(front[1], xr[1], xr[2]), n), x$exper, x$lwage,, col="gray", cex=0.25)
+  s3d$points3d(rep(ifelse(front[1], xr[1], xr[2]), n), x$exper, x$lwage, col="gray", cex=0.25)
   s3d$points3d(x$educ[resid<0], x$exper[resid<0], x$lwage[resid<0], col=color[resid<0], pch=19, cex=0.75)
   addSurface(s3d, regobj, educ, exper)
   s3d$points3d(x$educ[resid>=0], x$exper[resid>=0], x$lwage[resid>=0], col=color[resid>=0], pch=19, cex=0.75)
   
-  plot(x$educ, x$exper, col=color, pch=19, xlab="educ", ylab="exper",) 
+  plot(x$educ, x$exper, col=color, pch=19, xlab="educ", ylab="exper") 
   addContour(regobj, educ, exper)
   if (!is.null(header)) {
     r2 <- 1-sum(resid(regobj)^2)/sum((x$lwage-mean(x$lwage))^2)
@@ -63,7 +63,7 @@ plotModel <- function (regobj, x, educ, exper, maxres, pp=list(cex=0.75), header
   if (!is.null(regobj$call)) { mtext(deparse(regobj$call), side=1, outer=T) }
 }
 
-dop <- T
+dop <- F
 library("scatterplot3d")
 library("locfit")
 library("np")

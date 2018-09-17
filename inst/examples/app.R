@@ -129,6 +129,7 @@ imageR <- function(prg) {
   win <- round(7.0*as.numeric(prg$width)/480.0, 1)
   hin <- round(7.0*as.numeric(prg$height)/480.0, 1)
 	fullsource <- paste('dev.off <- pdf <- postscript <- png <- bmp <- jpeg <- tiff <- function(...) {invisible(NULL)}',
+	                    'source <- function(file, ...) { file <- list.files(path="..", pattern=file, recursive=TRUE, full.names=TRUE)[1]; cat(file, "\n"); base::source(file=file, ...)}', 
 	                     sprintf('grDevices::pdf("%s", width=%.1f, height=%.1f)', prg$pdf, win, hin),
 	                    "cat(\"<!--START-->\\n\")",
 	                     prg$code,
@@ -269,7 +270,7 @@ ui <- dashboardPage(
 #		tags$style(".left-side, .main-sidebar {padding-top: 20px}"),
     tags$style(".left-side, .main-sidebar {top: auto; padding-top: 0px}"),
 		tags$style(".skin-blue .sidebar a { color: #444; }"),
-    tags$script(src = "example.js"),
+#    tags$script(src = "example.js"),
 #		useShinyjs(),
 #		extendShinyjs(script="example.js"),
 #		HTML('<br>'),

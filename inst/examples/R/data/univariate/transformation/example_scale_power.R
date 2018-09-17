@@ -5,6 +5,7 @@ summary(Boston$crim)
 sccrim <- scale(Boston$crim)
 summary(sccrim)
 # Power
+par(mfrow=c(1,2))
 hist(Boston$crim)
-spcrim <- basicPower(testdata, -1)  
+spcrim <- basicPower(Boston$crim, 0)  
 hist(spcrim)

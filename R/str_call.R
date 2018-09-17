@@ -15,7 +15,6 @@
 #' do.call('abs', list(x=-10))
 #' str_call('abs', list(x=-10))
 str_call <- function(func, args, lib=NULL) {
-  #browser()
   nargs <- length(args)
   if (nargs>0) {
     targs    <- c()
@@ -23,14 +22,34 @@ str_call <- function(func, args, lib=NULL) {
     ld       <- length(args)-length(argnames)
     if (ld>0) argnames <- c(argnames, rep('', ld))
     for (i in 1:length(args)) {
+      #browser(expr=(argnames[i]=='choices'))
       carg <- class(args[[i]])
+      if (carg=='call') {
+        args[[i]] <- eval(args[[i]])
+        carg <- class(args[[i]])
+      }
       targ <- NULL
-      name <- if (nchar(argnames[i])>0) paste0(argnames[i], '=') else ''
+      name <- if (nchar(argnames[i])>0) paste0('"', argnames[i], '"=') else ''
 #      print(args[[i]]); print(carg)
-      if (carg=='character') targ <- paste0(name, '"', args[[i]], '"')
+      if (carg=='NULL')      targ <- paste0(name, 'NULL')
+      if (carg=='character') {
+        if (length(args[[i]])==1) {
+          targ <- paste0(name, '"', args[[i]], '"')
+        } else {
+          targ <- paste0(name, str_call('c', args[[i]]))      
+        }
+      }
+      if (carg=='list') targ <- paste0(name, str_call('list', args[[i]]))
 #      if (carg=='if')        targ <- paste0(name, paste(deparse(args[[i]]), collapse=" "))
       if (carg=='function')  targ <- paste0(name, paste(deparse(args[[i]]), collapse=" "))
-      if (is.null(targ)) targ <- paste0(name, as.character(args[[i]]))
+      if (is.null(targ)) {
+        if (length(args[[i]])==1) {
+          targ <- paste0(name, as.character(args[[i]]))
+        } else {
+          targ <- paste0(name, str_call('c', args[[i]]))      
+        }
+      }
+      #browser()
       targs <- c(targs, targ)
     }
     param <- paste0(targs, collapse=',\n')

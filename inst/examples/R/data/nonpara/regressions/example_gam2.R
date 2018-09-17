@@ -1,4 +1,4 @@
-# run example_lm2.R before
+source("plotContour.R")
 #
 library("MASS")  # for Boston Housing data
 library("mgcv")

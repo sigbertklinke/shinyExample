@@ -16,6 +16,8 @@ template <- function (text=NULL, file=NULL, ...) {
     if (is.null(obj)) return('NULL')
     as.character(obj)
   }
+  #
+  #browser()
   if (is.null(text)) {
     if (is.null(file)) stop('Either "file" or "text" must be set')
     text <- readLines(file)

@@ -1,0 +1,6 @@
+stunden = c(0, 100, 500, 1000, 2000)
+F = c(0, 0.01, 0.25, 0.7, 1, 1)
+plot(c(stunden, 2500), F, type="l", axes=FALSE, xlab="x", ylab="F(x)", lwd=2)
+axis(1, at = c(stunden, 2500), labels=c(stunden,""), pos = 0)
+axis(2, at  = c(0,seq(from=0, to=1, by=0.2)), pos=0)
+lines (c(2000, 2500), c(1,1), lty=2, col="WHITE", lwd=2)

@@ -1,8 +1,10 @@
 --- 
 title: "shinyExample" 
 author: "Sigbert Klinke" 
-date: "`r Sys.Date()`" 
-output: rmarkdown::html_vignette 
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  html_document:
+    toc: true
 vignette: > 
   %\VignetteIndexEntry{shinyExample} 
   %\VignetteEngine{knitr::rmarkdown} 
@@ -19,25 +21,33 @@ To install the package from GitHub use the [devtools package](https://cran.r-pro
 
 > devtools::install_github('sigbertklinke/shinyExample')
 
-Note: To use the Shiny app you need to have installed [Ghostscript](https://www.ghostscript.com/) and [ImageMagick](https://www.imagemagick.org) before.
+__Notes__:
+
+1. To use the Shiny app you need to have installed [Ghostscript](https://www.ghostscript.com/) and [ImageMagick](https://www.imagemagick.org) before.
+2. The app may not work on Windows systems.
 
 ## shinyExample
 
-*shinyExample* calls a Shiny app which can run R-, Octave- of Stata programs which produce only console output or one plot.
+*shinyExample* allows you to run R-, Octave- of Stata programs which produce only console output or one plot. For teaching purposes the source coude, the console output and the plot can be viewed. The app supports some limited interactivity: you can rerun the program which is especially in the framework of inferential statistics useful to show the influence of drawing a new (random) sample.  
 
 ![](mmstat1.png)
 
-Clicking on the ![](ExampleButton2.png) opens a sidebar which allows further operations:
+### Interactive app
 
-* Viewing the source code, the console output and the plot separately
-* Download the source code, the console output or a PDF file of the plot 
-* Loading another program snippet
-* Rerun the current program snippet
-* Load results of older reruns of the current program snippet
+Clicking on the ![](ExampleButton2.png) opens a sidebar which allows further operations.
+
+* __Source__ : view source code
+* __Console__ : view console output (including source code)
+* __Plot__ : view plot output (if any)
+* __Run again__ : rerun current program, the result will have an embedded a time stamp of the current time
+* __0__ : rerun current program, the result will have an embedded a time stamp of '0' (= 1:00:00, 1 Jan 1970)
+* __Download__ : download the source code (TXT), the console output (TXT) or the plot (PDF) depending on the current view 
+* __File select__ : select another program stored at the server
+* __History__ : load the result from a previous run of the current program
 
 ![](mmstat2.png)
 
-The Shiny app will run in R, but of course is intended to be embedded via an *iframe* into web pages. With URL given you can determine the starting parameters of the app. The URL
+The Shiny app will run in R (via `runShinyExample()`), but of course is intended to be embedded via an *iframe* into web pages. With URL given you can determine the starting parameters of the app. The URL
 
 https://shinyapps.wiwi.hu-berlin.de/examples?P=stat/Statistik/lottozahlen.R&V=P
 
@@ -55,8 +65,44 @@ Following query parameters exists
 * *S=* some sizenames for the plot, e.g. *VGA* for 640x480. Note that seting *W* and/or *H* overwrites the settings from *S* 
 * *L=* link to an specific version of output (if not given *L=0000000000000* is assumed) 
 
-## Installing the app on a Shiny server
+### Static app
+
+Since each run of a program creates a set of HTML pages you can also embed these HTML pages rather the app itself. In web page you should not embed more than __four__ apps, otherwise the server will not be able to display empty results. If you once made a program which produced a good plot or output then can click on __STATIC__ link to get the URL for this plot or output. If you embed that link into your webpage then you will this HTML page with __INTERACTIVE__ link to the app.
+
+![](mmstat3.png)
+
+### Installing the app on a Shiny server
 
 1. You copy everything under *inst/examples* into a shiny apps directoy of the server, e.g. */srv/shiny-server/examples*
-2. The subdirectory *tmp* should be writetable for the Shiny server. Here you should place also all the data files your example programs might need.
+2. The subdirectories *rds*, *run* and *tmp* should be writetable for the Shiny server. 
+3. Place all necessary data files your example programs might need into the subdirectory *run*
 3. The subdirectory *R* contains your example programs, maybe with a further subdirectory structure.
+
+## makeShinyApp
+
+The <tt>makeShinyApp</tt> command should allow you to create easily an interactive app. You may have R code snippets which you use to show in your presentations. Note that this intended to convert quickly programm snippets to an interactive shiny app. For complex apps it is better to use the <tt>shiny</tt> directly.
+
+### The histogram example
+
+#### My code snippet 
+
+A typical code snippet which simply shows a histogram might be (stored in a file called <tt>hist0.R</tt>)
+
+__hist0.R__
+```{r eval=FALSE}
+library("MASS")
+x <- Boston$medv
+hist(x)
+```
+
+The first step is to create a file, e.g. named <tt>hist0_app.R</tt> which contains the app environment. Do not forget to set your working directory to the directory where <tt>hist0.R</tt> is stored.
+
+__hist0_app.R__
+```{r eval=FALSE}
+library("shinyExample")
+makeShinyApp(output=plotOut('plot', file='hist0.R'))
+```
+
+Running this R program will generate and open in RStudio a file named <tt>app.R</tt>. Running the app with __Run app__ button will run your app
+
+![](hist0.png)

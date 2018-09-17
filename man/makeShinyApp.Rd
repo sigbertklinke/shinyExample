@@ -4,9 +4,10 @@
 \alias{makeShinyApp}
 \title{makeShinyApp}
 \usage{
-makeShinyApp(output, input = NULL, dashboardHeader = list(title = "MM*Stat",
-  titleWidth = NULL, disable = FALSE), dashboardSidebar = list(disable =
-  FALSE, width = NULL, collapsed = FALSE), app = "app.tmpl")
+makeShinyApp(output, input = NULL, dashboardHeader = list(title =
+  "MM*Stat", titleWidth = NULL, disable = FALSE),
+  dashboardSidebar = list(disable = FALSE, width = NULL, collapsed =
+  FALSE), app = "app.tmpl")
 }
 \arguments{
 \item{output}{list:}

@@ -9,20 +9,27 @@
 #' @param app character: name of app template file (default: \code{app.tmpl})
 #'
 #' @return
-#' @importFrom("utils", "file.edit")
 #' @export
 #'
 #' @examples
 makeShinyApp <- function (output, input=NULL,
-                             dashboardHeader=list(title='MM*Stat', titleWidth=NULL, disable=FALSE),
-                             dashboardSidebar=list(disable=FALSE, width=NULL, collapsed=FALSE),
-                             app='app.tmpl') {
+                          dashboardHeader=list(title='MM*Stat', titleWidth=NULL, disable=FALSE),
+                          dashboardSidebar=list(disable=FALSE, width=NULL, collapsed=FALSE),
+                          app='app.tmpl') {
+  mergePrgLines <- function (code, collapse="\n", final='') {
+    if (is.null(code) || (code=='')) return('')
+    paste0(paste0(code, collapse=collapse), final)
+  }
   #browser()
-  if (!is.list(output)) stop('Unexpected value for "output"')
-  Sidebar <- Server <- Body <- c()
+  if (!is.environment(output)) stop('Unexpected value for "output"')
+  prg <- list(Sidebar=c(),
+              Server=c(),
+              Body=c(),
+              Value=c(),
+              Global=c()
+  )
   if ('shiny' %in% class(output)) { # Just one output, no sidebar entries necessary
-    if (!is.null(output$Body))   Body   <- c(Body, output$Body)
-    if (!is.null(output$Server)) Server <- c(Server, output$Server, '')
+    prg <- appendToPrg(prg, output)
   } else {
     if (length(output)>1) { # Several outputs, create entries on sidebar
       onames <- names(output)
@@ -36,29 +43,33 @@ makeShinyApp <- function (output, input=NULL,
          if (!is.null(output[[i]]$Server)) Server <- c(Server, output[[i]]$Server, '')
       }
       #browser()
-      Server  <- c(Server,  paste0("output$UImmstatTabs <- renderMenu({\n", str_call('sidebarMenu', menuItemList), "\n})"))
       add_ID('UImmstatTabs', 'sidebarMenuOutput')
-      Sidebar <- c(Sidebar, str_call('sidebarMenuOutput', list(outputId='UImmstatTabs')))
-      Body    <- c(Body,    str_call('tabItems', tabItemList))
+      prg <- appendToPrg(prg,
+                         list(Server  = paste0("output$UImmstatTabs <- renderMenu({\n", str_call('sidebarMenu', menuItemList), "\n})"),
+                              Sidebar = str_call('sidebarMenuOutput', list(outputId='UImmstatTabs')),
+                              Body    = str_call('tabItems', tabItemList)
+                              )
+                         )
+    } else {
+      prg <- appendToPrg(prg, output[[1]])
     }
   }
+  #browser()
   if (!is.null(input)) { # any input
     if ('shiny' %in% class(input)) input <- list(input)
-    #browser()
     for (inp in input) {
-      Sidebar <- c(Sidebar, inp$Sidebar)
-      Server  <- c(Server, inp$Server)
+      prg <- appendToPrg(prg, inp)
     }
   }
-  if (!is.null(Server))  Server  <- paste(Server, collapse="\n")
-  if (!is.null(Body))    Body    <- paste(Body, collapse="\n")
-  if (!is.null(Sidebar)) Sidebar <- paste0(paste(Sidebar, collapse=",\n"), ',\n')
-  app <- template(file=app,
-                  dashboardHeader=dashboardHeader,
-                  dashboardSidebar=dashboardSidebar,
-                  Sidebar=Sidebar,
-                  Server=Server,
-                  Body=Body
+  #browser()
+  app <- template(file             = app,
+                  dashboardHeader  = dashboardHeader,
+                  dashboardSidebar = dashboardSidebar,
+                  Sidebar          = mergePrgLines(prg$Sidebar, ",\n", ","),
+                  Server           = mergePrgLines(prg$Server),
+                  Body             = mergePrgLines(prg$Body),
+                  Value            = mergePrgLines(prg$Value),
+                  Global           = mergePrgLines(prg$Global)
                   )
   print_ID()
   writeLines(app, 'app.R')

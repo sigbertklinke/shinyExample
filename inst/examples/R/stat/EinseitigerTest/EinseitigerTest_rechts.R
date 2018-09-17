@@ -1,0 +1,7 @@
+curve(from=-4, to=4, dnorm(x, mean=0, sd=1), xaxt="n", yaxt="n",ylab="", xlab="", col="red", ylim=c(0.0,0.4), lty=1, lwd=4, font.lab=2, "xaxs"="i" ,"yaxs"="i", bty="l", sub="Abb. 2: Verteilung der Teststatistik V unter H_0 und Entscheidungsbereiche (rechts. Test)")
+abline(v=2, col="black", lwd=2)
+abline(v=0.0, col="black", lwd=4, lty=2)
+text(0, 0.15, expression(paste("1-" , alpha)), col = "black", cex=2.5)
+text(2.3, 0.01, expression(alpha), col = "black", cex=1.2)
+axis( side=1, at=c(0, 2, 4), c(expression(theta[0]), expression(C), "V"), tick=FALSE)
+axis( side=2, at=c(0.39), labels=c("f(V)"), tick=FALSE)

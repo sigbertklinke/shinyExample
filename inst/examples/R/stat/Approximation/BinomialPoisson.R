@@ -1,0 +1,6 @@
+a=dbinom(c(0:8), 100, 0.01) 
+b=dpois(c(0:8),1) 
+ab <- cbind(a,b) 
+barplot(t(ab), beside=TRUE, col=c("red","darkblue"), ylim=c(0, 0.4), xlab="X", ylab="f(X)", font.lab=2) 
+axis( side=1, at=3*c(1:9)-1, labels=c("0", "1", "2", "3", "4", "5", "6", "7", "8"), tick=FALSE) 
+legend("topright",fill=c("red","darkblue"),c("B(100; 0,01)","PO(1)"), bty="n")
