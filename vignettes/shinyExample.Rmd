@@ -192,8 +192,20 @@ makeShinyApp(input=list(elem1, elem2),
 
 ### Derived input elements
 
-The following additional input elements exists
+The following additional input elements are derived from
 
-| Element | Derived from | Parameters | Further parameters |
-| confidenceLevelIn | sliderIn | | percent 
+* <tt>checkboxIn</tt>  
+* <tt>selectIn</tt>  
+    + <tt>dataIn</tt>
+    + <tt>langIn</tt>
+    + <tt>varIn</tt>  
+* <tt>sliderIn</tt>
+    + <tt>associationIn</tt>  
+    + <tt>confidenceLevelIn</tt>  
+    + <tt>correlationIn</tt>
+    + <tt>sampleSizeIn</tt>  
+    
+```{r echo=FALSE}
+help("sliderIn", help_type="html")
+```
  

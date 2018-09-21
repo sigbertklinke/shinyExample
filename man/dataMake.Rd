@@ -11,10 +11,12 @@ dataMake(file, ...)
 
 \item{...}{list of named(!) data set(s)}
 }
+\value{
+nothing
+}
 \description{
 Creates a list of data sets (only data frames are allowed!) and saves them to a file. These file(s) can be used in \code{\link{dataIn}}.
 }
 \examples{
-library('MASS')
-dataMake('BA.rds', BostonHosuing=Boston, AndersonIris=iris)
+dataMake('MA.rds', MotorTrend=mtcars, AndersonIris=iris)
 }

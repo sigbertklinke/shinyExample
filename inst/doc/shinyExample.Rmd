@@ -80,11 +80,11 @@ Since each run of a program creates a set of HTML pages you can also embed these
 
 ## makeShinyApp
 
-The <tt>makeShinyApp</tt> command should allow you to create easily an interactive app. You may have R code snippets which you use to show in your presentations. Note that this intended to convert quickly programm snippets to an interactive shiny app. For complex apps it is better to use the <tt>shiny</tt> directly.
+The <tt>makeShinyApp</tt> command should allow you to create easily an interactive app. You may have R code snippets which you use to show in your presentations. Note that this intended to convert quickly programm snippets to an interactive shiny app. For complex apps it is better to use  <tt>shiny</tt> directly.
 
 ### The histogram example
 
-#### My code snippet 
+#### A base histogram
 
 A typical code snippet which simply shows a histogram might be (stored in a file called <tt>hist0.R</tt>)
 
@@ -103,6 +103,109 @@ library("shinyExample")
 makeShinyApp(output=plotOut('plot', file='hist0.R'))
 ```
 
-Running this R program will generate and open in RStudio a file named <tt>app.R</tt>. Running the app with __Run app__ button will run your app
+The <tt>output</tt> parameter tells Shiny that you have one output element named <tt>plot</tt> which contains a plot (<tt>plotOut</tt>). The code to generate the plot is contained in your file <tt>hist0.R</tt>.
+
+Running this R program will generate and open in RStudio a file named <tt>app.R</tt>. Running the app with the __Run app__ button will run your app
 
 ![](hist0.png)
+#### A histogram with bins
+
+The standdard example in Shiny is a histogram where the number of bins can be modified for the data set. We need to create an input element which allows us to modify the number of breaks.
+
+__hist1.R__
+```{r eval=FALSE}
+library("MASS")
+x <- Boston$medv
+hist(x, breaks=value(input$breaks))
+```
+
+We will name the input elements <tt>breaks</tt>. If you create an shiny app then you will become the current value of the input element by <tt>input$breaks</tt>. The function <tt>value</tt> ensures that you always get a valid value; during an initialisation of an Shiny app it happens that <tt>input$breaks</tt> is <tt>NULL</tt>. 
+
+__hist1_app.R__
+```{r eval=FALSE}
+library("shinyExample")
+elem <- sliderIn('breaks', 'Number of bins', min=1, max=50, value=10)
+makeShinyApp(input=elem,
+             output=plotOut('plot', file='hist1.R'))
+```
+
+<tt>elem</tt> contains the slider with name <tt>breaks</tt> which is later used for <tt>input$breaks</tt>. To the call of <tt>makeShinyApp</tt>
+we add now this input elements. 
+
+![](hist1.png)
+
+Looking at the histogram you will notice that we have only 9 bins instead of 10 bins as the slider says. When playing with the number of bins it seems that sometimes the histogram does not react on your changes. This is a problem of <tt>hist</tt> which modifies your value of <tt>breaks</tt> to a nearby value. For getting exactly <tt>input$breaks</tt> bins you have to set class borders explicitly.
+
+__hist2.R__
+```{r eval=FALSE}
+library("MASS")
+x <- Boston$medv
+b <- seq(min(x), max(x), length.out=value(input$breaks)+1)
+hist(x, breaks=b)
+```
+
+__hist2_app.R__
+```{r eval=FALSE}
+library("shinyExample")
+elem <- sliderIn('breaks', 'Number of bins', min=1, max=50, value=10)
+makeShinyApp(input=elem,
+             output=plotOut('plot', file='hist2.R'))
+```
+
+Now you really get 10 bins for your histogram
+
+![](hist2.png)
+
+When running your app in RStudio you see the following output
+
+```{r eval=FALSE}
+gettext("Number of bins"); # 1
+```
+
+Currently you can ignore this, but if you want internationalise your app then you need this information.
+
+#### Rug your histogram
+
+The standard Shiny example allows you to add the observations to your histogram, which requires two input elements
+
+__hist3.R__
+```{r eval=FALSE}
+library("MASS")
+x <- Boston$medv
+b <- seq(min(x), max(x), length.out=value(input$breaks)+1)
+hist(x, breaks=b)
+if(value(input$rug)) rug(x)
+```
+
+Create yout input elements and combine them into a list
+
+__hist3_app.R__
+```{r eval=FALSE}
+library("shinyExample")
+elem1 <- sliderIn('breaks', 'Number of bins', min=1, max=50, value=10)
+elem2 <- checkboxIn('rug', 'Show observations')
+makeShinyApp(input=list(elem1, elem2),
+             output=plotOut('plot', file='hist3.R'))
+```
+
+![](hist3.png)
+
+### Derived input elements
+
+The following additional input elements are derived from
+
+* <tt>checkboxIn</tt>  
+* <tt>selectIn</tt>  
+    + <tt>dataIn</tt>
+    + <tt>langIn</tt>
+    + <tt>varIn</tt>  
+* <tt>sliderIn</tt>
+    + <tt>associationIn</tt>  
+    + <tt>confidenceLevelIn</tt>  
+    + <tt>correlationIn</tt>
+    + <tt>sampleSizeIn</tt>  
+    
+```{r echo=FALSE}
+help("sliderIn", help_type="html")
+```
+ 

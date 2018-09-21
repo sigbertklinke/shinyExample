@@ -1,6 +1,8 @@
 #' remove_ID 
 #'
-#' @return
+#' Removes all IDs.
+#'
+#' @return nothing
 #' @export
 #'
 #' @examples

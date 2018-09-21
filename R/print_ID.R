@@ -1,6 +1,8 @@
 #' print_ID
 #'
-#' @return
+#' prints a list of IDs
+#'
+#' @return nothing
 #' @export
 #'
 #' @examples

@@ -8,17 +8,28 @@ textOut(outputId, container = if (inline) span else div,
   inline = FALSE, file = NULL, text = NULL)
 }
 \arguments{
+\item{outputId}{output variable to read the value from}
+
+\item{container}{a function to generate an HTML element to contain the text}
+
+\item{inline}{use an inline (\code{span()}) or block container (\code{div()})
+for the output}
+
 \item{file}{character: name of file with R code to execute}
 
 \item{text}{character: text with R code to execute}
 }
+\value{
+an environment
+}
 \description{
-Render a reactive output variable as text within an application page. For the not documented parameters see \code{\link[shiny]{textOutput}}
+Render a reactive output variable as text within an application page. 
+Either \code{file} or \code{text} must be set.
 }
 \examples{
 textOut('mytext', text='1:10')
 \dontrun{
-# create a static app
+# creates a static app
 makeShinyApp(output=textOut('mytext', text='1:10'))
 }
 }

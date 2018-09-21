@@ -4,53 +4,90 @@
 \alias{sampleSizeIn}
 \title{sampleSizeIn}
 \usage{
-sampleSizeIn(inputId, label, min, max, value, step, round = TRUE,
-  format = NULL, locale = NULL, ticks = TRUE, animate = FALSE,
-  width = NULL, sep = ",", pre = NULL, post = NULL,
-  timeFormat = NULL, timezone = NULL, dragRange = TRUE,
-  log = FALSE)
+sampleSizeIn(inputId, label = "Sample size", min = 30, max = 500,
+  value = 100, step = 10, round = TRUE, format = NULL,
+  locale = NULL, ticks = TRUE, animate = FALSE, width = NULL,
+  sep = ",", pre = NULL, post = NULL, timeFormat = NULL,
+  timezone = NULL, dragRange = TRUE, log = FALSE)
 }
 \arguments{
-\item{inputId}{character: The input slot that will be used to access the value.}
+\item{inputId}{The \code{input} slot that will be used to access the value.}
 
-\item{label}{character: Display label for the control, or \code{NULL} for no label.}
+\item{label}{Display label for the control, or \code{NULL} for no label.}
 
-\item{min}{numeric: The minimum value (inclusive) that can be selected (default: 30)}
+\item{min}{The minimum value (inclusive) that can be selected.}
 
-\item{max}{numeric: The maximum value (inclusive) that can be selected (default: 1000)}
+\item{max}{The maximum value (inclusive) that can be selected.}
 
-\item{value}{numeric: The initial value of the slider}
+\item{value}{The initial value of the slider. A numeric vector of length one
+will create a regular slider; a numeric vector of length two will create a
+double-ended range slider. A warning will be issued if the value doesn't
+fit between \code{min} and \code{max}.}
 
-\item{step}{numeric: Specifies the interval between each selectable value on the slider (if NULL, a heuristic is used to determine the step size, default: 10)}
+\item{step}{Specifies the interval between each selectable value on the
+slider (if \code{NULL}, a heuristic is used to determine the step size). If
+the values are dates, \code{step} is in days; if the values are times
+(POSIXt), \code{step} is in seconds.}
 
-\item{round}{}
+\item{round}{\code{TRUE} to round all values to the nearest integer;
+\code{FALSE} if no rounding is desired; or an integer to round to that
+number of digits (for example, 1 will round to the nearest 10, and -2 will
+round to the nearest .01). Any rounding will be applied after snapping to
+the nearest step.}
 
-\item{format}{}
+\item{format}{Deprecated.}
 
-\item{locale}{}
+\item{locale}{Deprecated.}
 
-\item{ticks}{}
+\item{ticks}{\code{FALSE} to hide tick marks, \code{TRUE} to show them
+according to some simple heuristics.}
 
-\item{animate}{}
+\item{animate}{\code{TRUE} to show simple animation controls with default
+settings; \code{FALSE} not to; or a custom settings list, such as those
+created using \code{\link{animationOptions}}.}
 
-\item{width}{}
+\item{width}{The width of the input, e.g. \code{'400px'}, or \code{'100\%'};
+see \code{\link{validateCssUnit}}.}
 
-\item{sep}{}
+\item{sep}{Separator between thousands places in numbers.}
 
-\item{pre}{}
+\item{pre}{A prefix string to put in front of the value.}
 
-\item{post}{}
+\item{post}{A suffix string to put after the value.}
 
-\item{timeFormat}{}
+\item{timeFormat}{Only used if the values are Date or POSIXt objects. A time
+format string, to be passed to the Javascript strftime library. See
+\url{https://github.com/samsonjs/strftime} for more details. The allowed
+format specifications are very similar, but not identical, to those for R's
+\code{\link[base]{strftime}} function. For Dates, the default is \code{"\%F"}
+(like \code{"2015-07-01"}), and for POSIXt, the default is \code{"\%F \%T"}
+(like \code{"2015-07-01 15:32:10"}).}
 
-\item{timezone}{}
+\item{timezone}{Only used if the values are POSIXt objects. A string
+specifying the time zone offset for the displayed times, in the format
+\code{"+HHMM"} or \code{"-HHMM"}. If \code{NULL} (the default), times will
+be displayed in the browser's time zone. The value \code{"+0000"} will
+result in UTC time.}
 
-\item{dragRange}{}
+\item{dragRange}{This option is used only if it is a range slider (with two
+values). If \code{TRUE} (the default), the range can be dragged. In other
+words, the min and max can be dragged together. If \code{FALSE}, the range
+cannot be dragged.}
 
-\item{percent}{logical: use 95 or 0.95 (default: FALSE)}
+\item{log}{logical: use a log-scale (not implemented)}
+}
+\value{
+an environment
 }
 \description{
-Constructs a slider widget to select a sample size. For the not documented parameters see \code{\link[shiny]{sliderInput}}
+Constructs a slider widget to select a sample size with the following defaults
+\describe{
+\item{\code{label}}{\emph{Sample size}}
+\item{\code{min}}{30}
+\item{\code{max}}{500}
+\item{\code{value}}{100}
+\item{\code{step}}{10}
+}
 }
 \examples{
 sampleSizeIn('n', value=50)

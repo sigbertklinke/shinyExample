@@ -1,10 +1,6 @@
-rm(list=ls())
-#rf <- list.files(path="/home/sigbert/syncthing/projekte/R/shinyExample/R", pattern="*.R", full.names = TRUE)
-rf <- list.files(path="/home/sk/syncthing/projekte/R/shinyExample/R", pattern="*.R", full.names = TRUE)
-for (i in 1:length(rf)) try(source(rf[i]))
-
-#dataMake('mmstat.RDS', Boston=Boston)
-
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) # RStudio only
+#
+library("shinyExample")
 data   <- dataIn("data", "Choose data set", file="mmstat.RDS",
                  varIn("var1", "Choose variable", type=is.numeric)
                  )

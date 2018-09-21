@@ -1,32 +1,22 @@
 #' confidenceLevelIn
 #'
-#' Constructs a slider to select a confidence level. For the undocumented parameters see \code{\link[shiny]{sliderInput}}
-#'
-#' @param inputId 
-#' @param label character: if \code{percent==TRUE}  \emph{Confidence level (%)} else \emph{Confidence level}
-#' @param min numeric: if \code{percent==TRUE}  \emph{80} else \emph{0.8}
-#' @param max numeric:  if \code{percent==TRUE}  \emph{99.99} else \emph{0.999}
-#' @param value numeric: if \code{percent==TRUE}  \emph{95} else \emph{0.95}
-#' @param step numeric: if \code{percent==TRUE}  \emph{0.1} else \emph{0.001}
-#' @param round 
-#' @param format 
-#' @param locale 
-#' @param ticks 
-#' @param animate 
-#' @param width 
-#' @param sep 
-#' @param pre 
-#' @param post 
-#' @param timeFormat 
-#' @param timezone 
-#' @param dragRange 
+#' Constructs a slider to select a confidence level with following defaults:
+#' \describe{
+#' \item{\code{label}}{if \code{percent==TRUE} then \emph{Confidence level (%)} else \emph{Confidence level}}
+#' \item{\code{min}}{if \code{percent==TRUE} then \emph{80} else \emph{0.8}}
+#' \item{\code{max}}{if \code{percent==TRUE} then \emph{99.99} else \emph{0.999}}
+#' \item{\code{value}}{if \code{percent==TRUE} then \emph{95} else \emph{0.95}}
+#' \item{\code{step}}{if \code{percent==TRUE} then \emph{0.1} else \emph{0.001}}
+#' }
+#' 
+#' @inheritParams shiny::sliderInput
 #' @param percent logical: use 95 or 0.95 (default: FALSE)
-#'
-#' @return
+
+#' @return an environment
 #' @export
 #'
 #' @examples
-#' confidenceLevelInput('cl')
+#' confidenceLevelIn('cl')
 confidenceLevelIn <- function (inputId, label, min, max, value, step, round = FALSE,
                                   format = NULL, locale = NULL, ticks = TRUE, animate = FALSE,
                                   width = NULL, sep = ",", pre = NULL, post = NULL, timeFormat = NULL,

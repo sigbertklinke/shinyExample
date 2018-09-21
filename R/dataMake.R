@@ -5,12 +5,12 @@
 #' @param file character: name of RDS file
 #' @param ... list of named(!) data set(s) 
 #'
-#' @return
+#' @return nothing
 #' @export
+#' @importFrom utils capture.output str
 #'
 #' @examples
-#' library('MASS')
-#' dataMake('BA.rds', BostonHosuing=Boston, AndersonIris=iris)
+#' dataMake('MA.rds', MotorTrend=mtcars, AndersonIris=iris)
 dataMake <- function(file, ...) {
   if (file.exists(file)) warning(sprintf('file "%s" will be overwritten', file))
   args  <- list(...)

@@ -1,30 +1,20 @@
 #' plotOut
 #'
-#' Render a plot within an application page. For the not documented parameters see \code{\link[shiny]{plotOutput}}
-#'
-#' @param outputId 
-#' @param width 
-#' @param height 
-#' @param click 
-#' @param dblclick 
-#' @param hover 
-#' @param hoverDelay 
-#' @param hoverDelayType 
-#' @param brush 
-#' @param clickId 
-#' @param hoverId 
-#' @param inline 
+#' Render a plot within an application page. 
+#' Either \code{file} or \code{text} must be set.
+#' 
+#' @inheritParams shiny::plotOutput
 #' @param file character: name of file with R code to execute
 #' @param text character: text with R code to execute
 #'
-#' @return
+#' @return a environment
 #' @export
 #'
 #' @examples
-#' plotOutput('myplot', text='plot(1:10)')
+#' plotOut('myplot', text='plot(1:10)')
 #' \dontrun{
 #' # create a static app
-#' makeShinyApp(output=plotOutput('myplot', text='plot(1:10)'))
+#' makeShinyApp(output=plotOut('myplot', text='plot(1:10)'))
 #' }
 plotOut <- function(outputId, width = "100%", height = "400px", click = NULL,
                        dblclick = NULL, hover = NULL, hoverDelay = NULL,
@@ -47,9 +37,9 @@ plotOut <- function(outputId, width = "100%", height = "400px", click = NULL,
   eargs <- list()
   #browser()
   for (arg in names(fargs)) eargs[[arg]] <- if(is.null(args[[arg]])) eval(fargs[[arg]]) else eval(args[[arg]])
-  ret        <- newShiny('plotOutput')
-  ret$Id     <- outputId
-  ret$Body   <- str_call('plotOutput', eargs, lib='shiny')
-  ret$Server <- c(paste0('output$', outputId, " <- shiny::renderPlot({\n#", pfile, "\n", text, "\n})", ''))
-  ret
+  newShiny('plotOutput', 
+            Id     = outputId,
+            Body   = str_call('plotOutput', eargs, lib='shiny'),
+            Server = c(paste0('output$', outputId, " <- shiny::renderPlot({\n#", pfile, "\n", text, "\n})", ''))
+  )
 }

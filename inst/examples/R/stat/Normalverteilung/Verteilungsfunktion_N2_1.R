@@ -1,1 +1,0 @@
-curve(from=-2, to=6, pnorm(x, mean=2, sd=1), ylab="F(x)", col="darkgreen", main="Verteilungsfunktion der N(2; 1)", ylim=c(0.00,1.0), lty=1, lwd=4, font.lab=2, "xaxs"="i" ,"yaxs"="i", bty="l")

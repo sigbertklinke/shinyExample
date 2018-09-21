@@ -7,20 +7,21 @@
 checkboxIn(inputId, label, value = FALSE, width = NULL)
 }
 \arguments{
-\item{inputId}{character: name of checkbox element}
+\item{inputId}{The \code{input} slot that will be used to access the value.}
 
-\item{label}{character: label of input element}
+\item{label}{Display label for the control, or \code{NULL} for no label.}
 
-\item{value}{logical: start value (default: \code{FALSE})}
+\item{value}{Initial value (\code{TRUE} or \code{FALSE}).}
 
-\item{width}{numeric: width of input element}
+\item{width}{The width of the input, e.g. \code{'400px'}, or \code{'100\%'};
+see \code{\link{validateCssUnit}}.}
 }
 \value{
-a checkbox for use into \code{\link{makeShinyApp}}
+an environment
 }
 \description{
-Creates a checkbox element, for more details see \code{\link[shiny]{checkboxInput}}.
+Creates a checkbox element.
 }
 \examples{
-checkbox('rug', 'Show observations')
+checkboxIn('rug', 'Show observations')
 }

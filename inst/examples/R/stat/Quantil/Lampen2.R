@@ -1,6 +1,6 @@
-gl <- readdataSK("gluehlampen.csv", format="csv2")
+gl <- read.csv("gluehlampen.csv")
 F_hat = c(0, 1, 7, 16, 19, 19)
-plot(c(gl$k_u, gl$k_o[4], 2500), F_hat, type = "l", axes = FALSE, ylab = "", 
+plot(c(gl$k_u, gl$k_o[4], 2500), F_hat, type = "l", axes = FALSE, ylab = "",
      xlab = "", xpd = TRUE, lwd = 3)
 axis(1, at =c(1:2500), labels = rep("",2500), xpd = TRUE, tck = 0, pos = 0)
 axis(2, at = c(0:21), labels = rep("",22), pos = 0, xpd = TRUE, tck = 0)

@@ -1,4 +1,4 @@
-allbus = readdataSK("allbus2010.csv", format = "csv2")
+allbus <- read.csv2("allbus2010.csv")
 
 par(mfrow=c(2,2))
 ###### Klassenbreite 800 Euro ######

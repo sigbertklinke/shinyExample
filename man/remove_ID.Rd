@@ -6,6 +6,9 @@
 \usage{
 remove_ID()
 }
+\value{
+nothing
+}
 \description{
-remove_ID
+Removes all IDs.
 }

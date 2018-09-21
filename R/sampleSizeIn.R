@@ -1,33 +1,23 @@
 #' sampleSizeIn
 #'
-#' Constructs a slider widget to select a sample size. For the not documented parameters see \code{\link[shiny]{sliderInput}}
+#' Constructs a slider widget to select a sample size with the following defaults
+#' \describe{
+#' \item{\code{label}}{\emph{Sample size}}
+#' \item{\code{min}}{30}
+#' \item{\code{max}}{500}
+#' \item{\code{value}}{100}
+#' \item{\code{step}}{10}
+#' }
+#' 
+#' @inheritParams shiny::sliderInput
+#' @param log logical: use a log-scale (not implemented)
 #'
-#' @param inputId character: The input slot that will be used to access the value.
-#' @param label character: Display label for the control, or \code{NULL} for no label.
-#' @param min numeric: The minimum value (inclusive) that can be selected (default: 30)
-#' @param max numeric: The maximum value (inclusive) that can be selected (default: 1000)
-#' @param value numeric: The initial value of the slider
-#' @param step numeric: Specifies the interval between each selectable value on the slider (if NULL, a heuristic is used to determine the step size, default: 10) 
-#' @param round 
-#' @param format 
-#' @param locale 
-#' @param ticks 
-#' @param animate 
-#' @param width 
-#' @param sep 
-#' @param pre 
-#' @param post 
-#' @param timeFormat 
-#' @param timezone 
-#' @param dragRange 
-#' @param percent logical: use 95 or 0.95 (default: FALSE)
-#'
-#' @return
+#' @return an environment
 #' @export
 #'
 #' @examples
 #' sampleSizeIn('n', value=50)
-sampleSizeIn <- function (inputId, label, min, max, value, step, round = TRUE,
+sampleSizeIn <- function (inputId, label='Sample size', min=30, max=500, value=100, step=10, round = TRUE,
                           format = NULL, locale = NULL, ticks = TRUE, animate = FALSE,
                           width = NULL, sep = ",", pre = NULL, post = NULL, timeFormat = NULL,
                           timezone = NULL, dragRange = TRUE, log=FALSE) {

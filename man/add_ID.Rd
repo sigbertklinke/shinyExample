@@ -11,6 +11,9 @@ add_ID(id, txt = "")
 
 \item{txt}{character: additional text informations to the ID (default: '')}
 }
+\value{
+nothing
+}
 \description{
 Adds the ID (name of an input or output element of the app) to the set of IDs. If the ID already exists then an error will be thrown.
 }

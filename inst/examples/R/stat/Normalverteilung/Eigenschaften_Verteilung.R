@@ -1,6 +1,0 @@
-curve(from=-2, to=6, pnorm(x, mean=2, sd=1), xaxt="n", ylab="F(x)", xlab="x", col="black", ylim=c(0.0,1.0), lty=1, lwd=4, font.lab=2, "xaxs"="i" ,"yaxs"="i", bty="l")
-abline(v=1, lwd=2)
-abline(v=2, lwd=2)
-abline(v=3,  lwd=2)
-abline(h=0.5, lwd=2, lty=3)
-axis(at=c(-2:6), side=1, tick=TRUE, labels=TRUE, lwd.ticks=2)

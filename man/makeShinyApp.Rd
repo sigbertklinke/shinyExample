@@ -16,9 +16,12 @@ makeShinyApp(output, input = NULL, dashboardHeader = list(title =
 
 \item{dashboardHeader}{list: parameters for \code{\link[shinydashboard]{dashboardHeader}} (default: \code{list(title=NULL, titleWidth=NULL, disable=FALSE)})}
 
-\item{dashboardSidebar}{list: parameters for \code{\link[shinydashboard]{Sidebar}} (default: \code{list(disable=FALSE, width=NULL, collapsed=FALSE)})}
+\item{dashboardSidebar}{list: parameters for \code{\link[shinydashboard]{dashboardSidebar}} (default: \code{list(disable=FALSE, width=NULL, collapsed=FALSE)})}
 
 \item{app}{character: name of app template file (default: \code{app.tmpl})}
+}
+\value{
+opens the app file
 }
 \description{
 Creates a shiny app from one (or more) R example files using shinydashboard.

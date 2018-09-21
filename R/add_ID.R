@@ -5,8 +5,8 @@
 #' @param id character: name of ID
 #' @param txt character: additional text informations to the ID (default: '')
 #'
-#' @return
-#' @export
+#' @return nothing
+#' @export 
 #'
 #' @examples
 #' add_ID('test')

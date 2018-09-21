@@ -5,11 +5,12 @@
 #' @param output list:
 #' @param input list:
 #' @param dashboardHeader list: parameters for \code{\link[shinydashboard]{dashboardHeader}} (default: \code{list(title=NULL, titleWidth=NULL, disable=FALSE)})
-#' @param dashboardSidebar list: parameters for \code{\link[shinydashboard]{Sidebar}} (default: \code{list(disable=FALSE, width=NULL, collapsed=FALSE)})
+#' @param dashboardSidebar list: parameters for \code{\link[shinydashboard]{dashboardSidebar}} (default: \code{list(disable=FALSE, width=NULL, collapsed=FALSE)})
 #' @param app character: name of app template file (default: \code{app.tmpl})
 #'
-#' @return
+#' @return opens the app file 
 #' @export
+#' @importFrom utils str
 #'
 #' @examples
 makeShinyApp <- function (output, input=NULL,
@@ -28,6 +29,7 @@ makeShinyApp <- function (output, input=NULL,
               Value=c(),
               Global=c()
   )
+  #browser()
   if ('shiny' %in% class(output)) { # Just one output, no sidebar entries necessary
     prg <- appendToPrg(prg, output)
   } else {
@@ -69,7 +71,10 @@ makeShinyApp <- function (output, input=NULL,
                   Server           = mergePrgLines(prg$Server),
                   Body             = mergePrgLines(prg$Body),
                   Value            = mergePrgLines(prg$Value),
-                  Global           = mergePrgLines(prg$Global)
+                  Global           = mergePrgLines(prg$Global),
+                  AsChoices        = mergePrgLines(c('as.choices <- ', deparse(shinyExample::as.choices))),
+                  GetText          = mergePrgLines(c('getText <- ', deparse(shinyExample::getText))),
+                  Translations     = mergePrgLines(c('translations <- ', deparse(shinyExample::translations)))
                   )
   print_ID()
   writeLines(app, 'app.R')

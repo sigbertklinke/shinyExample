@@ -1,5 +1,0 @@
-y <- c(10.1, 28.2, 25.5, 36.2)
-names (y) <- c("x1", "x2", "x3", "x4")
-names (y) <- paste (names(y), "\n", y,"%")
-pie(y, col=c("tomato2","yellow1","dodgerblue","springgreen3"), cex=1)
-plot(y)
