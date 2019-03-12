@@ -1,5 +1,5 @@
-library("foreign")
-x <- read.spss("BANK2.sav", to.data.frame=T)
+library("rio")
+x <- import("https://shinyapps.wiwi.hu-berlin.de/d/BANK2.sav")
 par(mfrow=c(1,2))
 # do PCA (correlation)
 pc <- prcomp(x, center=T, scale=T)

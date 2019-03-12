@@ -1,5 +1,6 @@
-library("MissingDataGUI") # for brfss data
-library("Amelia")
-missmap(brfss)
-#
-MissingDataGUI(brfss)
+library("VIM")
+par(mfrow=c(2,2))
+barMiss(sleep$Danger)
+histMiss(sleep$NonD)
+scattMiss(cbind(sleep$Dream, sleep$Sleep))
+marginplot(cbind(sleep$Dream, sleep$Sleep))

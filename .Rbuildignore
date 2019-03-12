@@ -1,5 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\tmp\*$
+^\R2\*$
 ^.*\.RData$
 ^.*\.Rhistory$

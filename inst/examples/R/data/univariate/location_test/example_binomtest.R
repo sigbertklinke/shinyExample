@@ -1,4 +1,4 @@
-library("MASS") # for Boston Housing data
+data(Boston, package="MASS")
 # Sign test 
 # H0: pi = pi0 
 # H1: pi <> pi0 

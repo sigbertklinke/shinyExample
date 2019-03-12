@@ -1,5 +1,5 @@
 libs <- c(
-  "actuar", warn.conflicts=FALSE",
+  "actuar", warn.conflicts=FALSE,
   "additivityTests",
   "agricolae",
   "Amelia",

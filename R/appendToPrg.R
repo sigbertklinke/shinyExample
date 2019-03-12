@@ -14,6 +14,7 @@
 #' # Note the r$c is NOT overtaken into the result
 #' appendToPrg(l, r)
 appendToPrg <- function (left, right) {
+  #browser()
   for (ln in names(left)) {
     if (!is.null(right[[ln]])) left[[ln]] <- c(left[[ln]], right[[ln]])
   }

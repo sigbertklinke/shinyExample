@@ -1,4 +1,4 @@
-library("MASS")
+data(Boston, package="MASS")
 # frequency table
 summary(as.factor(Boston$rad))
 tab <- table(Boston$rad)

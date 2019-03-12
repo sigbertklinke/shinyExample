@@ -6,7 +6,7 @@ sign.test <- function(x, theta0=mean(x), ...) {
   binom.test(nlow, length(x), p=0.5, ...)
 }
 
-library("MASS")   # for Boston Housing data
+data(Boston, package="MASS")
 # Sign test 
 # H0: median(medv) = mean(medv) 
 # H1: median(medv) <> mean(medv) 

@@ -1,4 +1,5 @@
-x   <- read.csv2("cps78_85.csv")
+library("rio")
+x  <- import("https://shinyapps.wiwi.hu-berlin.de/d/CPS78-85.tsv")
 xs  <- subset(x, year==85)
 # Add exper^2 ?
 lms <- lm (lwage~educ+exper, data=xs)

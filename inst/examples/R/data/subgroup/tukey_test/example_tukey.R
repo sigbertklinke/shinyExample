@@ -1,4 +1,4 @@
-library("MASS") # for Boston Housing data
+data(Boston, package="MASS")
 # ANOVA 
 Boston$rad	<- as.factor(Boston$rad)
 fit <- aov(medv~rad, data=Boston)

@@ -1,4 +1,4 @@
-library("MASS")    # for Boston Housing data
+data(Boston, package="MASS")
 # mean
 mean(Boston$medv)
 # median

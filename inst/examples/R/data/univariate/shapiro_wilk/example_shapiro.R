@@ -1,4 +1,4 @@
-library("MASS")
+data(Boston, package="MASS")
 shapiro.test(Boston$medv)
 #
 library("DescTools")

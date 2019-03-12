@@ -1,4 +1,4 @@
-library("MASS") # for Boston Housing data
+data(Boston, package="MASS")
 ecdf.medv <- ecdf(Boston$medv)
 # print
 ecdf.medv

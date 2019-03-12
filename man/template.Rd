@@ -4,21 +4,20 @@
 \alias{template}
 \title{template}
 \usage{
-template(text = NULL, file = NULL, ...)
+template(text, ...)
 }
 \arguments{
 \item{text}{character: text in which is replaced}
 
-\item{file}{character: name fo file}
-
-\item{...}{list of parameeter for replacing}
+\item{...}{named list of parameters for replacing}
 }
 \value{
 character: replaced text
 }
 \description{
-Replaces in text the terms \code{\{\{...\}\}} by the parameters given in \code{...}. Either a \code{text} or \code{file} must be given.
+Replaces in text the terms \code{\{\{...\}\}} by the parameters given in \code{...}. 
+Note that if the parameters contain \code{\{\{...\}\}} then it will \strong{not} be replaced recursively.
 }
 \examples{
-template(text='{{a}}+1', a='test')
+template('{{a}}+1', a='test')
 }

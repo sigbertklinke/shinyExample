@@ -15,3 +15,6 @@ vector of translated messages
 \description{
 Translates a given message into another language.
 }
+\examples{
+getText('Test')
+}

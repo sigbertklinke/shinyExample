@@ -4,12 +4,11 @@ plot.confint <- function (b, b.boot, ci, main) {
 	abline(v=quantile(b.boot, c(0.025, 0.975)), col="green")
 }
 #
+library("rio")
+x  <- import("https://shinyapps.wiwi.hu-berlin.de/d/CPS78-85.tsv")
 library("car")
-x  <- read.csv2("cps78_85.csv")
 lm <- lm (lwage~educ, data=x, subset=(year==85))
 ci <- confint(lm, level=0.95)
 betahat <- bootCase(lm)
-plot.confint(lm$coefficients[1], betahat[,1], ci[1,], 
-						 "Intercept")
-plot.confint(lm$coefficients[2], betahat[,2], ci[2,], 
-						 "educ")
+plot.confint(lm$coefficients[1], betahat[,1], ci[1,], "Intercept")
+plot.confint(lm$coefficients[2], betahat[,2], ci[2,], "educ")

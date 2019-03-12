@@ -1,4 +1,4 @@
-library("MASS") # for Boston Housing data
+data(Boston, package="MASS")
 # variance an standard deviation
 var(Boston$medv)
 sd(Boston$medv)

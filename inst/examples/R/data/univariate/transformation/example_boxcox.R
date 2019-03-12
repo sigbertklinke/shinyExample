@@ -1,7 +1,7 @@
-library("MASS")           # to use Boston data
+data(Boston, package="MASS")
 library("car")
 par(mfrow=c(1,2))
 # Box-Cox
-hist(Boston$crim)
+hist(Boston$crim, main="crim")
 bccrim <- bcPower(Boston$crim, 0)
-hist(bccrim)
+hist(bccrim, main="bcPower(crim,0)")

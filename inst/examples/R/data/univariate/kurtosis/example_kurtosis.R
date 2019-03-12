@@ -1,7 +1,7 @@
-library("MASS")
+data(Boston, package="MASS")
 # 
 library("moments")
-kurtosis(Boston$medv)
+moments::kurtosis(Boston$medv) # kurtosis
 # 
 library("e1071")
-kurtosis(Boston$medv)
+e1071::kurtosis(Boston$medv)   # excess

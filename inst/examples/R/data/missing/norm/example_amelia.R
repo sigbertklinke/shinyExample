@@ -1,4 +1,4 @@
-source("create_mar.R")
+# run example_mar.R before
 library("Amelia")
 library("mitools")
 # run NORM

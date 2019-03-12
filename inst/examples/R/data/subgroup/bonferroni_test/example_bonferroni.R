@@ -1,4 +1,4 @@
-library("MASS") # for Boston Housing data
+data(Boston, package="MASS")
 # ANOVA 
 fit <- aov(medv~rad, data=Boston)
 # LSD test

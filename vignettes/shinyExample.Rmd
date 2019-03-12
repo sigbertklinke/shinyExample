@@ -14,6 +14,26 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+```{r echo=FALSE}
+help_console <- function(topic, format=c("text", "html", "latex", "Rd"),
+                         lines=NULL, before=NULL, after=NULL) {  
+  format=match.arg(format)
+  if (!is.character(topic)) topic <- deparse(substitute(topic))
+  helpfile = utils:::.getHelpFile(help(topic))
+  
+  hs <- capture.output(switch(format, 
+                              text=tools:::Rd2txt(helpfile),
+                              html=tools:::Rd2HTML(helpfile),
+                              latex=tools:::Rd2latex(helpfile),
+                              Rd=tools:::prepare_Rd(helpfile)
+  )
+  )
+  if(!is.null(lines)) hs <- hs[lines]
+  hs <- c(before, hs, after)
+  cat(hs, sep="\n")
+  invisible(hs)
+}
+```
 
 ## Installation from github
 
@@ -78,15 +98,52 @@ Since each run of a program creates a set of HTML pages you can also embed these
 3. Place all necessary data files your example programs might need into the subdirectory *run*
 3. The subdirectory *R* contains your example programs, maybe with a further subdirectory structure.
 
-## makeShinyApp
+## ShinyApp
 
-The <tt>makeShinyApp</tt> command should allow you to create easily an interactive app. You may have R code snippets which you use to show in your presentations. Note that this intended to convert quickly programm snippets to an interactive shiny app. For complex apps it is better to use  <tt>shiny</tt> directly.
+The ShinyApp part of the library is intended to convert quickly programm snippets to an interactive shiny app. For complex apps it is better to use `shiny` directly. A quick overview about availabe commands
+
+* Basics
+ `ShinyApp`
+ :Creates a ShinyApp object
+ `WriteApp`
+ :Writes a ShinyApp object to a file
+* Advanced
+ `DashboardHeader`
+ `DashboardSidebar`
+ `Global`
+* Shiny I/O
+ `CheckboxInput`
+ `PlotOutput`
+ `SliderInput`
+ `TextOutput`
+* Derived from `SliderInput`
+ `AssociationInput`
+ `ConfidenceInput`
+ `CorrelationInput` 
+ `SignificanceInput`
+
+ 
+### Skeleton 
+
+The basic skeleton for generating is the R program
+
+```{r eval=FALSE}
+library("shinyExample")
+ShinyApp() %>%
+WriteApp()
+```
+
+The `ShinyApp` starts coding an interactive app and `WriteApp` writes the app into a file `app.R`.  
+
+The `ShinyApp` command starts 
+
+## ShinyApp examples
 
 ### The histogram example
 
 #### A base histogram
 
-A typical code snippet which simply shows a histogram might be (stored in a file called <tt>hist0.R</tt>)
+A typical code snippet which simply shows a histogram might be (stored in a file called `hist0.R`)
 
 __hist0.R__
 ```{r eval=FALSE}
@@ -95,12 +152,14 @@ x <- Boston$medv
 hist(x)
 ```
 
-The first step is to create a file, e.g. named <tt>hist0_app.R</tt> which contains the app environment. Do not forget to set your working directory to the directory where <tt>hist0.R</tt> is stored.
+The first step is to create a file, e.g. named `hist0_app.R` which contains the app environment. Do not forget to set your working directory to the directory where `hist0.R` is stored.
 
 __hist0_app.R__
 ```{r eval=FALSE}
 library("shinyExample")
-makeShinyApp(output=plotOut('plot', file='hist0.R'))
+ShinyApp() %>%
+PlotOutput('plot', file='hist0.R') %>%
+WriteApp()  
 ```
 
 The <tt>output</tt> parameter tells Shiny that you have one output element named <tt>plot</tt> which contains a plot (<tt>plotOut</tt>). The code to generate the plot is contained in your file <tt>hist0.R</tt>.
@@ -177,7 +236,7 @@ hist(x, breaks=b)
 if(value(input$rug)) rug(x)
 ```
 
-Create yout input elements and combine them into a list
+Create your input elements and combine them into a list
 
 __hist3_app.R__
 ```{r eval=FALSE}
@@ -204,8 +263,3 @@ The following additional input elements are derived from
     + <tt>confidenceLevelIn</tt>  
     + <tt>correlationIn</tt>
     + <tt>sampleSizeIn</tt>  
-    
-```{r echo=FALSE}
-help("sliderIn", help_type="html")
-```
- 

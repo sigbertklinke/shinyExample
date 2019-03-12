@@ -1,4 +1,4 @@
-library("MASS")
+data(Boston, package="MASS")
 # 
 library("moments")
 skewness(Boston$medv)

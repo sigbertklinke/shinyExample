@@ -1,4 +1,4 @@
-library("MASS")
+data(Boston, package="MASS")
 # Kolmogorov-Smirnov test
 ks.test(Boston$medv, "pnorm", mean=mean(Boston$medv), 
 				sd=sd(Boston$medv))

@@ -6,7 +6,7 @@ p.median.test <- function (x, f) {
 	as.table(tab[,2:3]+n0/2)
 }
 #
-library("MASS") # for Boston Housing data
+data(Boston, package="MASS")
 tab <- p.median.test(Boston$medv, Boston$rad)
 tab
 chisq.test(tab)

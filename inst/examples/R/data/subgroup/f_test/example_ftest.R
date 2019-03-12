@@ -1,2 +1,2 @@
-library("MASS") # for Boston Housing Data
+data(Boston, package="MASS")
 var.test(medv~chas, data=Boston)

@@ -1,4 +1,4 @@
-library("MASS")             # to use Boston data
+data(Boston, package="MASS")
 library("entropy")
 ftab <- table(Boston[,9])
 entropy(ftab)               # estimates the entropy from data

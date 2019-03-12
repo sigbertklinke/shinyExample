@@ -1,3 +1,4 @@
+setwd('/home/sk/unison/Daten')
 library("foreign")
 Boston <- read.spss("BOSTONC.SAV", to.data.frame=T)
 pdf("boston_pts.pdf", width=5, height=6)

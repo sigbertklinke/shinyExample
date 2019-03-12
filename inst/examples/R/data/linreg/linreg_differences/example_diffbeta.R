@@ -1,4 +1,4 @@
-library("MASS")
+data(Boston, package="MASS")
 lm <- lm(medv~., data=Boston)
 n <- nrow(Boston)
 p <- ncol(Boston)

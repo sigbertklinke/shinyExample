@@ -1,4 +1,5 @@
-x  <- read.csv2("fatalities_statlib.csv")
+library("rio")
+x  <- import("https://shinyapps.wiwi.hu-berlin.de/d/fatalities_statlib.csv")
 # see http://lib.stat.cmu.edu/DASL/Stories/hwfatal.html
 lm <- lm (US~YR, data=x)
 summary(lm)

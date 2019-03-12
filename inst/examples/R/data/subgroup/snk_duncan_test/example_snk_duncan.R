@@ -1,4 +1,4 @@
-library("MASS") # for Boston Housing data
+data(Boston, package="MASS")
 library("agricolae")
 # ANOVA 
 Boston$rad	<- as.factor(Boston$rad)

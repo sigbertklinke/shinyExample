@@ -1,3 +1,4 @@
-library("MissingDataGUI") # for brfss data
-library("Amelia")
-missmap(brfss)
+library("VIM")
+mm <- aggr(sleep) # plot(mm)
+print(mm)
+summary(mm)

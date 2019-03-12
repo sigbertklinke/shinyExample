@@ -1,5 +1,5 @@
 # run example_mar.R before
-source('create_mar.R')
+source(list.files(pattern='example_mar.R', recursive=TRUE)[1])
 #
 library("mice")
 # run NORM

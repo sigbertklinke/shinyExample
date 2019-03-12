@@ -1,8 +1,9 @@
-source("plotContour.R")
+# run example_lm2.R before
 #
-library("MASS")  # for Boston Housing data
+data(Boston, package="MASS")
 library("np")
-model <- npreg(medv~lstat+rm, data=Boston)
+data(Boston, package="MASS")
+par(mfrow=c(1,1))
 plotContour(model, Boston$lstat, Boston$rm, Boston$medv)
-# do not run in examples
-# plot(model)
+par(mfrow=c(2,2))
+plot(model)

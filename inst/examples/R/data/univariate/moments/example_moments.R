@@ -1,4 +1,4 @@
-library("MASS")
+data(Boston, package="MASS")
 # 
 mean(Boston$medv)
 var(Boston$medv)

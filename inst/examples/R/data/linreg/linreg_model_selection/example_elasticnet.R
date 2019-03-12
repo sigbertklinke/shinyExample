@@ -1,4 +1,4 @@
-library("MASS")
+data(Boston, package="MASS")
 library("glmnet")
 x <- as.matrix(Boston[,-c(9,14)])
 y <- Boston[,14]
