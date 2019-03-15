@@ -30,7 +30,7 @@ setLanguage <- function(...) {
   stats <- list(count=numeric())
   if (length(files)) {
     for (i in seq(files)) {
-      msg            <- paste0(readLines(files[[i]]), collapse="\n")
+      msg            <- paste0(readLines(files[[i]], encoding="UTF-8"), collapse="\n")
       msgid          <- regmatches(msg, gregexpr('msgid\\s*".*?"', msg))
       tmp            <- strsplit(msgid[[1]], '"')
       msgid          <- sapply(tmp, function (vec) { paste0(vec[2:length(vec)]) } )
